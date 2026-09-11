@@ -6,24 +6,42 @@ import java.util.List;
 
 // Invariante: la lista de detalles nunca se expone directamente,
 // solo se modifica a través de agregarDetalle().
-<span class="fc" id="L9">public class Venta {</span>
+public class Venta {
 
 <span class="fc" id="L11">    private final List&lt;DetalleVenta&gt; detalles = new ArrayList&lt;&gt;();</span>
+    private EstadoVenta estado;
 
-    public void agregarDetalle(Producto producto, int cantidad) {
-<span class="fc" id="L14">        detalles.add(new DetalleVenta(producto, cantidad));</span>
-<span class="fc" id="L15">    }</span>
+
+
+<span class="fc" id="L16">   public Venta(){</span>
+<span class="fc" id="L17">		this.estado = EstadoVenta.NUEVA;</span>
+<span class="fc" id="L18">	}</span>
+
+	public EstadoVenta getEstado() {
+<span class="fc" id="L21">        return estado;</span>
+    }
+
+    public void setEstado(EstadoVenta estado) {
+<span class="fc" id="L25">        this.estado = estado;</span>
+<span class="fc" id="L26">    }	</span>
+
+public void agregarDetalle(Producto producto, int cantidad) {
+<span class="fc bfc" id="L29" title="All 2 branches covered.">    if (this.estado != EstadoVenta.NUEVA) {</span>
+<span class="fc" id="L30">        throw new IllegalStateException(&quot;No se pueden agregar detalles a una venta &quot; + this.estado);</span>
+    }
+<span class="fc" id="L32">    detalles.add(new DetalleVenta(producto, cantidad));</span>
+<span class="fc" id="L33">}</span>
 
     public List&lt;DetalleVenta&gt; getDetalles() {
-<span class="fc" id="L18">        return Collections.unmodifiableList(detalles);</span>
+<span class="fc" id="L36">        return Collections.unmodifiableList(detalles);</span>
     }
 
     public Dinero calcularTotal() {
-<span class="fc" id="L22">        Dinero total = Dinero.CERO;</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (DetalleVenta detalle : detalles) {</span>
-<span class="fc" id="L24">            total = total.sumar(detalle.subtotal());</span>
-<span class="fc" id="L25">        }</span>
-<span class="fc" id="L26">        return total;</span>
+<span class="fc" id="L40">        Dinero total = Dinero.CERO;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (DetalleVenta detalle : detalles) {</span>
+<span class="fc" id="L42">            total = total.sumar(detalle.subtotal());</span>
+<span class="fc" id="L43">        }</span>
+<span class="fc" id="L44">        return total;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
