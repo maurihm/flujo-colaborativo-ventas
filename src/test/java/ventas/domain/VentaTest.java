@@ -62,4 +62,29 @@ class VentaTest {
 
         assertThrows(UnsupportedOperationException.class, () -> detalles.add(detalleExterno));
     }
+
+    @Test
+public void ventaNuevaPermiteAgregarDetalles() {
+    Venta venta = new Venta();
+    // 1L va completamente SIN comillas
+    Producto producto = new Producto(1L, "Cafe", Dinero.CERO, 100);
+    
+    venta.agregarDetalle(producto, 2);
+    
+    assertEquals(EstadoVenta.NUEVA, venta.getEstado());
+}
+
+@Test
+public void agregarDetalleAVentaPagadaLanzaExcepcion() {
+    Venta venta = new Venta();
+    venta.setEstado(EstadoVenta.PAGADA);
+    // 1L va completamente SIN comillas
+    Producto producto = new Producto(1L, "Cafe", Dinero.CERO, 100);
+    
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+        venta.agregarDetalle(producto, 2);
+    });
+    
+    assertTrue(exception.getMessage().contains("No se pueden agregar detalles"));
+}
 }
