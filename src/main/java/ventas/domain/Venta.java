@@ -9,6 +9,7 @@ import java.util.List;
 public class Venta {
 
     private final List<DetalleVenta> detalles = new ArrayList<>();
+    private static final double TASA_IVA = 0.16; // 16%
 
     public void agregarDetalle(Producto producto, int cantidad) {
         detalles.add(new DetalleVenta(producto, cantidad));
@@ -18,11 +19,19 @@ public class Venta {
         return Collections.unmodifiableList(detalles);
     }
 
-    public Dinero calcularTotal() {
-        Dinero total = Dinero.CERO;
+    // Calcula la suma limpia de los productos
+    public Dinero calcularSubtotal() {
+        Dinero subtotal = Dinero.CERO;
         for (DetalleVenta detalle : detalles) {
-            total = total.sumar(detalle.subtotal());
+            subtotal = subtotal.sumar(detalle.subtotal());
         }
-        return total;
+        return subtotal;
+    }
+
+    // Calcula el total aplicando el 16% de IVA al subtotal
+    public Dinero calcularTotal() {
+        Dinero subtotal = calcularSubtotal();
+        Dinero montoIva = subtotal.multiplicar(TASA_IVA);
+        return subtotal.sumar(montoIva);
     }
 }

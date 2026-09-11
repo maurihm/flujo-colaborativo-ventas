@@ -9,21 +9,30 @@ import java.util.List;
 <span class="fc" id="L9">public class Venta {</span>
 
 <span class="fc" id="L11">    private final List&lt;DetalleVenta&gt; detalles = new ArrayList&lt;&gt;();</span>
+    private static final double TASA_IVA = 0.16; // 16%
 
     public void agregarDetalle(Producto producto, int cantidad) {
-<span class="fc" id="L14">        detalles.add(new DetalleVenta(producto, cantidad));</span>
-<span class="fc" id="L15">    }</span>
+<span class="fc" id="L15">        detalles.add(new DetalleVenta(producto, cantidad));</span>
+<span class="fc" id="L16">    }</span>
 
     public List&lt;DetalleVenta&gt; getDetalles() {
-<span class="fc" id="L18">        return Collections.unmodifiableList(detalles);</span>
+<span class="fc" id="L19">        return Collections.unmodifiableList(detalles);</span>
     }
 
+    // Calcula la suma limpia de los productos
+    public Dinero calcularSubtotal() {
+<span class="fc" id="L24">        Dinero subtotal = Dinero.CERO;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (DetalleVenta detalle : detalles) {</span>
+<span class="fc" id="L26">            subtotal = subtotal.sumar(detalle.subtotal());</span>
+<span class="fc" id="L27">        }</span>
+<span class="fc" id="L28">        return subtotal;</span>
+    }
+
+    // Calcula el total aplicando el 16% de IVA al subtotal
     public Dinero calcularTotal() {
-<span class="fc" id="L22">        Dinero total = Dinero.CERO;</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (DetalleVenta detalle : detalles) {</span>
-<span class="fc" id="L24">            total = total.sumar(detalle.subtotal());</span>
-<span class="fc" id="L25">        }</span>
-<span class="fc" id="L26">        return total;</span>
+<span class="fc" id="L33">        Dinero subtotal = calcularSubtotal();</span>
+<span class="fc" id="L34">        Dinero montoIva = subtotal.multiplicar(TASA_IVA);</span>
+<span class="fc" id="L35">        return subtotal.sumar(montoIva);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

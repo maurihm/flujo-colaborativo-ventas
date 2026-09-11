@@ -1,75 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ventas.domain.ProductoTest" time="0.033" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ventas.domain.ProductoTest" time="0.052" tests="9" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="gnome"/>
-    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
-    <property name="sonar.projectName" value="ventas-tcsw"/>
-    <property name="java.specification.version" value="11"/>
-    <property name="sun.cpu.isalist" value=""/>
-    <property name="sonar.host.url" value="http://localhost:9000"/>
+    <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/maurihm_/NetBeansProjects/ventas-p01-2/target/test-classes:/home/maurihm_/NetBeansProjects/ventas-p01-2/target/classes:/home/maurihm_/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/maurihm_/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/maurihm_/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/maurihm_/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/maurihm_/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/maurihm_/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
-    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.class.path" value="/home/val/flujo-colaborativo-ventas/target/test-classes:/home/val/flujo-colaborativo-ventas/target/classes:/home/val/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/val/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/val/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/val/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/val/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/val/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.vendor.url" value="https://adoptium.net/"/>
-    <property name="user.timezone" value=""/>
-    <property name="java.vm.specification.version" value="11"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
     <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MX"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-temurin-jdk/lib"/>
-    <property name="sun.java.command" value="/home/maurihm_/NetBeansProjects/ventas-p01-2/target/surefire/surefirebooter-20260906000331489_3.jar /home/maurihm_/NetBeansProjects/ventas-p01-2/target/surefire 2026-09-06T00-03-31_376-jvmRun1 surefire-20260906000331489_1tmp surefire_0-20260906000331489_2tmp"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/val/flujo-colaborativo-ventas/target/surefire/surefirebooter-20260911141101522_3.jar /home/val/flujo-colaborativo-ventas/target/surefire 2026-09-11T14-11-01_369-jvmRun1 surefire-20260911141101522_1tmp surefire_0-20260911141101522_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/home/maurihm_/NetBeansProjects/ventas-p01-2/target/test-classes:/home/maurihm_/NetBeansProjects/ventas-p01-2/target/classes:/home/maurihm_/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/maurihm_/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/maurihm_/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/maurihm_/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/maurihm_/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/maurihm_/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
+    <property name="surefire.test.class.path" value="/home/val/flujo-colaborativo-ventas/target/test-classes:/home/val/flujo-colaborativo-ventas/target/classes:/home/val/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/val/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/val/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/val/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/val/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/val/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/home/maurihm_"/>
+    <property name="user.home" value="/home/val"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2026-07-21"/>
-    <property name="java.home" value="/usr/lib/jvm/java-11-temurin-jdk"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/usr/lib/jvm/java-21-openjdk-amd64"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/home/maurihm_/NetBeansProjects/ventas-p01-2"/>
+    <property name="basedir" value="/home/val/flujo-colaborativo-ventas"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/maurihm_/NetBeansProjects/ventas-p01-2/target/surefire/surefirebooter-20260906000331489_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/val/flujo-colaborativo-ventas/target/surefire/surefirebooter-20260911141101522_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="11.0.32+9"/>
-    <property name="user.name" value="maurihm_"/>
+    <property name="java.runtime.version" value="21.0.10+7-Ubuntu-124.04"/>
+    <property name="user.name" value="val"/>
+    <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="7.1.9-200.fc44.x86_64"/>
+    <property name="os.version" value="6.17.0-23-generic"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="Temurin-11.0.32+9"/>
-    <property name="localRepository" value="/home/maurihm_/.m2/repository"/>
-    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="localRepository" value="/home/val/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-21"/>
     <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="sonar.token" value="sqp_ff402345fd4f1f6423f782d8672f51124447fe25"/>
-    <property name="java.version" value="11.0.32"/>
-    <property name="user.dir" value="/home/maurihm_/NetBeansProjects/ventas-p01-2"/>
+    <property name="java.version" value="21.0.10"/>
+    <property name="user.dir" value="/home/val/flujo-colaborativo-ventas"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
-    <property name="sun.os.patch.level" value="unknown"/>
-    <property name="sonar.projectKey" value="ventas-tcsw"/>
-    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
-    <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.vendor" value="Eclipse Adoptium"/>
-    <property name="java.vm.version" value="11.0.32+9"/>
-    <property name="java.specification.maintenance.version" value="3"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="21.0.10+7-Ubuntu-124.04"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="55.0"/>
+    <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="rechazaDescuentoMayorQueExistencia" classname="ventas.domain.ProductoTest" time="0.003"/>
-  <testcase name="rechazaNombreVacio" classname="ventas.domain.ProductoTest" time="0.002"/>
-  <testcase name="rechazaExistenciaNegativaAlCrear" classname="ventas.domain.ProductoTest" time="0.002"/>
+  <testcase name="rechazaDescuentoMayorQueExistencia" classname="ventas.domain.ProductoTest" time="0.006"/>
+  <testcase name="rechazaNombreVacio" classname="ventas.domain.ProductoTest" time="0.005"/>
+  <testcase name="rechazaExistenciaNegativaAlCrear" classname="ventas.domain.ProductoTest" time="0.006"/>
   <testcase name="creaProductoValido" classname="ventas.domain.ProductoTest" time="0.002"/>
   <testcase name="rechazaCodigoNoPositivo" classname="ventas.domain.ProductoTest" time="0.002"/>
-  <testcase name="descuentaExistenciaValida" classname="ventas.domain.ProductoTest" time="0.001"/>
-  <testcase name="conservaExistenciaDespuesDeUnRechazo" classname="ventas.domain.ProductoTest" time="0.002"/>
+  <testcase name="descuentaExistenciaValida" classname="ventas.domain.ProductoTest" time="0.002"/>
+  <testcase name="conservaExistenciaDespuesDeUnRechazo" classname="ventas.domain.ProductoTest" time="0.003"/>
   <testcase name="rechazaPrecioNulo" classname="ventas.domain.ProductoTest" time="0.002"/>
   <testcase name="rechazaCantidadCeroOMenor" classname="ventas.domain.ProductoTest" time="0.002"/>
 </testsuite>
