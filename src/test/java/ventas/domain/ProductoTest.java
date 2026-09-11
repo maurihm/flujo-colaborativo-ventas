@@ -72,4 +72,17 @@ class ProductoTest {
 
         assertEquals(10, p.getExistencia());
     }
+    
+    @Test
+    void productoConCategoriaValidaRetornaCategoriaCorrecta() {
+        Producto p = new Producto(10L, "Teclado", new Dinero(500.0), 10, Categoria.ELECTRONICA);
+        org.junit.jupiter.api.Assertions.assertEquals(Categoria.ELECTRONICA, p.getCategoria());
+    }
+
+    @Test
+    void productoSinCategoriaLanzaExcepcion() {
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Producto(11L, "Mouse", new Dinero(200.0), 5, null);
+        });
+    }
 }
