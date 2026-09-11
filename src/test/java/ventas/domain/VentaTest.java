@@ -62,4 +62,21 @@ class VentaTest {
 
         assertThrows(UnsupportedOperationException.class, () -> detalles.add(detalleExterno));
     }
+
+    @Test
+    void asignaClienteValidoYLoObtiene() {
+        Cliente cliente = new Cliente(1L, "Juan", "Perez", null);
+        Venta venta = new Venta();
+
+        venta.asignarCliente(cliente);
+
+        assertEquals(cliente, venta.getCliente());
+    }
+
+    @Test
+    void rechazaAsignarClienteNulo() {
+        Venta venta = new Venta();
+
+        assertThrows(IllegalArgumentException.class, () -> venta.asignarCliente(null));
+    }
 }
