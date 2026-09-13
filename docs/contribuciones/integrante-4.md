@@ -8,12 +8,15 @@
 
 **Revisión de Pares:** Actué como revisor en el PR #6 de @Lez267. Identifiqué un riesgo en el ciclo de vida de la transacción al asignar clientes y dejé comentarios bloqueantes y sugerencias sustentadas en el código. 
 
+
+
+
 **Archivos Modificados y Creados:**
 
-·	Creado: src/main/java/ventas/domain/EstadoVenta.java (Estructura base del Enum).
-·	
-·	Modificado: src/main/java/ventas/domain/Venta.java (Adición del estado inicial en el constructor y validación defensiva dentro de agregarDetalle).
-·	
-·	Modificado: src/test/java/ventas/domain/VentaTest.java (Adición de los métodos ventaNuevaPermiteAgregarDetalles() y agregarDetalleAVentaPagadaLanzaExcepcion()).
-·	
+**Creado:** src/main/java/ventas/domain/EstadoVenta.java (Estructura base del Enum).
+
+**Modificado:** src/main/java/ventas/domain/Venta.java (Adición del estado inicial en el constructor y validación defensiva dentro de agregarDetalle).
+	
+**Modificado:** src/test/java/ventas/domain/VentaTest.java (Adición de los métodos ventaNuevaPermiteAgregarDetalles() y agregarDetalleAVentaPagadaLanzaExcepcion()).
+
 **Retrospectiva:** La revisión temprana y el uso de PRs pequeños detectó fallos cerca de su origen, evitando regresiones en el código base del equipo. 
