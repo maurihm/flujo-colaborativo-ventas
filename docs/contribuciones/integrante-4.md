@@ -1,5 +1,7 @@
 **Nombre:** GARCIA LOYO AXEL URIEL
+
 **Issue y PR:** Issue #4 y Pull Request #5 (EstadoVenta y validación).
+
 **Identificador de Commit Final:** 7c95105e961663f70871d25afcf1c6026aba316b
 
 **Implementación:** Agregué el Enum EstadoVenta e implementé programación defensiva en Venta.java para bloquear modificaciones si la orden no tiene el estado NUEVA. Esto cumple con el requisito de separar qué se espera de cómo se implementa. 
