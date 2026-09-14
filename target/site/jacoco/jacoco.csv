@@ -1,6 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-ventas-tcsw,ventas.domain,Venta,0,65,0,4,0,17,0,8,0,6
-ventas-tcsw,ventas.domain,Dinero,19,60,3,5,2,13,5,7,2,6
-ventas-tcsw,ventas.domain,DetalleVenta,9,26,0,2,3,8,3,3,3,2
-ventas-tcsw,ventas.domain,Producto,5,69,2,14,1,19,2,13,0,7
-ventas-tcsw,ventas.domain,EstadoVenta,0,34,0,0,0,4,0,1,0,1
