@@ -8,6 +8,13 @@ import java.util.List;
 // solo se modifica a través de agregarDetalle().
 public class Venta {
     private Cliente cliente;
+    private final List<DetalleVenta> detalles = new ArrayList<>();
+    private EstadoVenta estado;
+    private static final double TASA_IVA = 0.16; // 16%
+
+    public Venta() {
+        this.estado = EstadoVenta.NUEVA;
+    }
 
     public void asignarCliente(Cliente cliente) {
         if (cliente == null) {
@@ -15,43 +22,43 @@ public class Venta {
         }
         this.cliente = cliente;
     }
-    private final List<DetalleVenta> detalles = new ArrayList<>();
-    private EstadoVenta estado;
 
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-
-   public Venta(){
-		this.estado = EstadoVenta.NUEVA;
-	}
-
-	public EstadoVenta getEstado() {
+    public EstadoVenta getEstado() {
         return estado;
     }
 
     public void setEstado(EstadoVenta estado) {
         this.estado = estado;
-    }	
-
-public void agregarDetalle(Producto producto, int cantidad) {
-    if (this.estado != EstadoVenta.NUEVA) {
-        throw new IllegalStateException("No se pueden agregar detalles a una venta " + this.estado);
     }
-    detalles.add(new DetalleVenta(producto, cantidad));
-}
+
+    public void agregarDetalle(Producto producto, int cantidad) {
+        if (this.estado != EstadoVenta.NUEVA) {
+            throw new IllegalStateException("No se pueden agregar detalles a una venta " + this.estado);
+        }
+        detalles.add(new DetalleVenta(producto, cantidad));
+    }
 
     public List<DetalleVenta> getDetalles() {
         return Collections.unmodifiableList(detalles);
     }
 
-    public Dinero calcularTotal() {
-        Dinero total = Dinero.CERO;
+    // Calcula la suma limpia de los productos
+    public Dinero calcularSubtotal() {
+        Dinero subtotal = Dinero.CERO;
         for (DetalleVenta detalle : detalles) {
-            total = total.sumar(detalle.subtotal());
+            subtotal = subtotal.sumar(detalle.subtotal());
         }
-        return total;
+        return subtotal;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    // Calcula el total aplicando el 16% de IVA al subtotal
+    public Dinero calcularTotal() {
+        Dinero subtotal = calcularSubtotal();
+        Dinero montoIva = subtotal.multiplicar(TASA_IVA);
+        return subtotal.sumar(montoIva);
     }
 }
