@@ -5,7 +5,6 @@
 - **Módulo:** M04. Colaboración profesional
 - **Experiencia Educativa:** Tecnologías para la Construcción de Software
 
----
 
 ## 1. Trazabilidad del Cambio
 - **Issue asignado:** `#2` - `feat: Categorización de Productos (Categoría)`
@@ -14,12 +13,11 @@
 - **Pull Request:** PR `#X` (vincular URL del PR en GitHub)
 - **Revisor asignado:** (Nombre del compañero que te revisará el PR)
 
----
+
 
 ## 2. Alcance y Decisión Técnica
 Se implementó el tipo enumerado `Categoria` en el paquete de dominio `ventas.domain` y se vinculó a la entidad `Producto`. Para preservar la integridad del dominio, se estableció como invariante que ningún producto puede crearse sin una categoría válida (`categoria != null`), rechazando intentos nulos con `IllegalArgumentException`. Para evitar romper el resto del sistema, se conservó un constructor sobrecargado con categoría predeterminada `GENERAL`.
 
----
 
 ## 3. Pruebas y Comprobación
 Se ejecutaron pruebas automatizadas con JUnit 5:
@@ -28,7 +26,6 @@ Se ejecutaron pruebas automatizadas con JUnit 5:
 - **Resultado Maven:** `BUILD SUCCESS` (`mvn test`).
 - **Estado de comprobación:** VERIFICADO.
 
----
 
 ## 4. Revisión por Pares (Code Review)
 - **Observaciones recibidas:** (Aquí pegarás el comentario `Sugerencia:` o `Bloqueante:` que tu compañero te deje en el PR).
