@@ -17,7 +17,7 @@ public class Venta {
 
     public List<DetalleVenta> getDetalles() {
         return Collections.unmodifiableList(detalles);
-    }
+    }       
 
     // Calcula la suma limpia de los productos
     public Dinero calcularSubtotal() {
