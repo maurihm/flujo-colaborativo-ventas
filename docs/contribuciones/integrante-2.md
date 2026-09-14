@@ -32,4 +32,16 @@ Se ejecutaron pruebas automatizadas con JUnit 5:
 
 ## 4. Revisión por Pares (Code Review)
 - **Observaciones recibidas:** (Aquí pegarás el comentario `Sugerencia:` o `Bloqueante:` que tu compañero te deje en el PR).
-- **Respuesta técnica y resolución:** (Breve nota de cómo atendiste o consensuaste el comentario).
+
+## Contribución como revisor — PR #8
+
+- Revisé el PR #8 de valux0 ("cálculo de IVA en venta").
+- Detecté que incluía la carpeta target/ (artefactos de compilación:
+  .class, .jar, jacoco.exec) versionada por error.
+- Dejé un comentario clasificado como Bloqueante, explicando ubicación,
+  impacto (historial inflado, riesgo de conflictos binarios) y la
+  acción concreta para resolverlo (git rm -r --cached target/ + .gitignore).
+- Reconocí explícitamente los aspectos correctos del cambio (lógica del
+  cálculo de IVA y cobertura de pruebas) antes de señalar el bloqueante.
+- [Pendiente: agregar fecha de aprobación final una vez que valux0
+  resuelva el punto]
