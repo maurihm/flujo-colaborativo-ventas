@@ -1,24 +1,28 @@
 package ventas.domain;
 
-// Invariantes: el precio no puede ser negativo (lo protege Dinero) y la existencia no puede ser negativa.
 public class Producto {
 
     private long codigo;
     private String nombre;
     private Dinero precio;
     private int existencia;
+    private Categoria categoria;
 
-    public Producto(long codigo, String nombre, Dinero precio, int existencia) {
-        if (precio == null || existencia < 0 || nombre == null || nombre.isBlank() || codigo <= 0) {
+    public Producto(long codigo, String nombre, Dinero precio, int existencia, Categoria categoria) {
+        if (precio == null || existencia < 0 || nombre == null || nombre.isBlank() || codigo <= 0 || categoria == null) {
             throw new IllegalArgumentException("Datos de producto inválidos");
         }
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.existencia = existencia;
+        this.categoria = categoria;
     }
 
-    // Protege el estado: solo descuenta si la cantidad es válida y hay existencia suficiente.
+    public Producto(long codigo, String nombre, Dinero precio, int existencia) {
+        this(codigo, nombre, precio, existencia, Categoria.GENERAL);
+    }
+
     public void descontar(int cantidad) {
         if (cantidad <= 0 || cantidad > existencia) {
             throw new IllegalArgumentException("Cantidad inválida para descontar");
@@ -26,7 +30,6 @@ public class Producto {
         existencia -= cantidad;
     }
 
-    // Permite que el precio del catálogo cambie con el tiempo, sin afectar ventas ya registradas.
     public void actualizarPrecio(Dinero nuevoPrecio) {
         if (nuevoPrecio == null) {
             throw new IllegalArgumentException("El precio no puede ser nulo");
@@ -48,5 +51,9 @@ public class Producto {
 
     public int getExistencia() {
         return existencia;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 }

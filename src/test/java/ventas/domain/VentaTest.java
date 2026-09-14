@@ -63,4 +63,46 @@ class VentaTest {
 
         assertThrows(UnsupportedOperationException.class, () -> detalles.add(detalleExterno));
     }
+
+    @Test
+    void asignaClienteValidoYLoObtiene() {
+        Cliente cliente = new Cliente(1L, "Juan", "Perez", null);
+        Venta venta = new Venta();
+
+        venta.asignarCliente(cliente);
+
+        assertEquals(cliente, venta.getCliente());
+    }
+
+    @Test
+    void rechazaAsignarClienteNulo() {
+        Venta venta = new Venta();
+
+        assertThrows(IllegalArgumentException.class, () -> venta.asignarCliente(null));
+    }
+
+    @Test
+    void ventaNuevaPermiteAgregarDetalles() {
+        Venta venta = new Venta();
+        Producto producto = new Producto(1L, "Cafe", Dinero.CERO, 100);
+
+        venta.agregarDetalle(producto, 2);
+
+        assertEquals(EstadoVenta.NUEVA, venta.getEstado());
+    }
+
+    @Test
+    public void agregarDetalleAVentaPagadaLanzaExcepcion() {
+        Venta venta = new Venta();
+        venta.setEstado(EstadoVenta.PAGADA);
+
+        Producto producto = new Producto(1L, "Cafe", Dinero.CERO, 100);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            venta.agregarDetalle(producto, 2);
+        });
+
+        assertTrue(exception.getMessage().contains("No se pueden agregar detalles"));
+    }
+
 }
