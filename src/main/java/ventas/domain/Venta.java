@@ -11,6 +11,7 @@ public class Venta {
     private final List<DetalleVenta> detalles = new ArrayList<>();
     private EstadoVenta estado;
     private static final double TASA_IVA = 0.16; // 16%
+    private String id;
 
     public Venta() {
         this.estado = EstadoVenta.NUEVA;
@@ -61,4 +62,13 @@ public class Venta {
         Dinero montoIva = subtotal.multiplicar(TASA_IVA);
         return subtotal.sumar(montoIva);
     }
+
+    public Venta(String id) {
+    this.id = id;
+    this.estado = EstadoVenta.NUEVA;
+}
+
+    public String getId() {
+    return id;
+        }
 }
