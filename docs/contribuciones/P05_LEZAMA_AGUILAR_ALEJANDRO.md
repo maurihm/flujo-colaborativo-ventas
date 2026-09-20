@@ -8,9 +8,9 @@
 3. **Pruebas Estructurales:** Programé la clase `ArchitectureTest.java` con las tres reglas principales (el dominio no debe depender de adaptadores, la aplicación no debe depender de adaptadores y el dominio no debe usar frameworks externos).
 
 ## Evidencias Git
-- **Issue:** [Poner enlace a tu Issue de GitHub aquí]
-- **Commits:** [Poner enlace a tus commits aquí]
-- **Pull Request:** [Poner enlace a tu PR aquí]
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/11
+- **Commits:** https://github.com/maurihm/flujo-colaborativo-ventas/pull/12/commits
+- **Pull Request:** https://github.com/maurihm/flujo-colaborativo-ventas/pull/12
 
 ## Pruebas de Funcionamiento
 Las pruebas de ArchUnit y las pruebas del dominio previas ejecutan correctamente y el proyecto marca `BUILD SUCCESS`.
