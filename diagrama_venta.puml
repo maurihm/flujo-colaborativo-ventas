@@ -3,33 +3,52 @@
 skinparam classAttributeIconSize 0
 skinparam monochrome true
 skinparam shadowing false
+skinparam packageStyle rectangle
 
 package "Adaptadores (Exterior)" {
     class InMemoryVentaRepository
+    class InMemoryProductoRepository
 }
 
-package "Núcleo de la Aplicación" {
-    package "Puertos" {
+package "Núcleo de la Aplicación (Dominio y Casos de Uso)" {
+    package "Puertos (Interfaces)" {
+        interface CrearVentaUseCase
+        interface RegistrarProductoUseCase
         interface ConfirmarVentaUseCase
         interface VentaRepository
+        interface ProductoRepository
     }
 
-    package "Servicios (Casos de Uso)" {
+    package "Servicios de Aplicación" {
+        class CrearVentaService
+        class RegistrarProductoService
         class ConfirmarVentaService
     }
 
-    package "Dominio" {
-        class Venta {
-            -estado: EstadoVenta
-            +setEstado(estado: EstadoVenta): void
-        }
+    package "Dominio (Reglas de Negocio)" {
+        class Venta
+        class Producto
+        class Cliente
     }
 }
 
-' Relaciones de Arquitectura Hexagonal
-ConfirmarVentaUseCase <|.. ConfirmarVentaService : "Implementa (Puerto Entrada)"
-ConfirmarVentaService ..> Venta : "Modifica estado"
-ConfirmarVentaService --> VentaRepository : "Usa (Puerto Salida)"
-VentaRepository <|.. InMemoryVentaRepository : "Depende de (Inversión de Dependencia)"
+' Relaciones de los Adaptadores (Inversión de Dependencias apuntando hacia adentro)
+VentaRepository <|.. InMemoryVentaRepository : Implementa
+ProductoRepository <|.. InMemoryProductoRepository : Implementa
+
+' Relaciones de la Capa de Aplicación
+CrearVentaUseCase <|.. CrearVentaService : Implementa
+RegistrarProductoUseCase <|.. RegistrarProductoService : Implementa
+ConfirmarVentaUseCase <|.. ConfirmarVentaService : Implementa
+
+CrearVentaService --> VentaRepository : Usa
+RegistrarProductoService --> ProductoRepository : Usa
+ConfirmarVentaService --> VentaRepository : Usa
+
+' Relaciones hacia el Dominio
+CrearVentaService --> Venta : Instancia / Usa
+CrearVentaService --> Cliente : Usa
+RegistrarProductoService --> Producto : Instancia
+ConfirmarVentaService --> Venta : Modifica estado
 
 @enduml
