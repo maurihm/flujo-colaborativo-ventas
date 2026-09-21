@@ -81,8 +81,10 @@ class ProductoTest {
 
     @Test
     void productoSinCategoriaLanzaExcepcion() {
-        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Producto(11L, "Mouse", new Dinero(200.0), 5, null);
-        });
-    }
+    Dinero precio = new Dinero(200.0);
+    
+    org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        new Producto(11L, "Mouse", precio, 5, null);
+    });
+}
 }

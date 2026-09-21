@@ -92,7 +92,7 @@ class VentaTest {
     }
 
     @Test
-    public void agregarDetalleAVentaPagadaLanzaExcepcion() {
+     void agregarDetalleAVentaPagadaLanzaExcepcion() {
         Venta venta = new Venta();
         venta.setEstado(EstadoVenta.PAGADA);
 
