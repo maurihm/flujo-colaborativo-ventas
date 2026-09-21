@@ -4,4 +4,5 @@ import ventas.domain.Venta;
 
 public interface VentaRepository {
     void guardar(Venta venta);
+    Venta buscarPorId(String id);
 }
