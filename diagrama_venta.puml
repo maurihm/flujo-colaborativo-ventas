@@ -4,60 +4,32 @@ skinparam classAttributeIconSize 0
 skinparam monochrome true
 skinparam shadowing false
 
-package "Exterior (Adaptadores)" {
+package "Adaptadores (Exterior)" {
     class InMemoryVentaRepository
-    class TestAutomatizado
 }
 
-package "Núcleo (Dominio y Aplicación)" {
-    
-    package "Aplicación" {
-        interface RegistrarVentaUseCase
-        class RegistrarVentaService
+package "Núcleo de la Aplicación" {
+    package "Puertos" {
+        interface ConfirmarVentaUseCase
+        interface VentaRepository
+    }
+
+    package "Servicios (Casos de Uso)" {
+        class ConfirmarVentaService
     }
 
     package "Dominio" {
-        interface VentaRepository
-        
-        class Producto {
-          -codigo: long
-          -nombre: String
-          -precio: double
-          -existencia: int
-          +descontar(cantidad: int): void
-        }
-
         class Venta {
-          -detalles: List<DetalleVenta>
-          +agregarDetalle(producto: Producto, cantidad: int): void
-          +calcularTotal(): double
-        }
-
-        class DetalleVenta {
-          -producto: Producto
-          -cantidad: int
-          -precioCapturado: double
-          +subtotal(): double
+            -estado: EstadoVenta
+            +setEstado(estado: EstadoVenta): void
         }
     }
 }
 
-' Relaciones del Dominio Original
-Venta "1" *-- "1..*" DetalleVenta : contiene
-DetalleVenta --> "1" Producto : referencia
-
 ' Relaciones de Arquitectura Hexagonal
-TestAutomatizado ..> RegistrarVentaUseCase : "Actor principal"
-RegistrarVentaUseCase <|.. RegistrarVentaService : "Implementa"
-RegistrarVentaService ..> Venta : "Coordina"
-RegistrarVentaService --> VentaRepository : "Usa (Puerto de salida)"
-VentaRepository <|.. InMemoryVentaRepository : "Invierte dependencia"
-
-note right of DetalleVenta
-  precioCapturado se copia al
-  agregar el detalle; no cambia
-  aunque después cambie el
-  precio del catálogo.
-end note
+ConfirmarVentaUseCase <|.. ConfirmarVentaService : "Implementa (Puerto Entrada)"
+ConfirmarVentaService ..> Venta : "Modifica estado"
+ConfirmarVentaService --> VentaRepository : "Usa (Puerto Salida)"
+VentaRepository <|.. InMemoryVentaRepository : "Depende de (Inversión de Dependencia)"
 
 @enduml
