@@ -4,41 +4,32 @@ skinparam classAttributeIconSize 0
 skinparam monochrome true
 skinparam shadowing false
 
-class Producto {
-  -codigo: long
-  -nombre: String
-  -precio: double
-  -existencia: int
-  +descontar(cantidad: int): void
+package "Adaptadores (Exterior)" {
+    class InMemoryVentaRepository
 }
 
-class Venta {
-  -detalles: List<DetalleVenta>
-  +agregarDetalle(producto: Producto, cantidad: int): void
-  +calcularTotal(): double
+package "Núcleo de la Aplicación" {
+    package "Puertos" {
+        interface ConfirmarVentaUseCase
+        interface VentaRepository
+    }
+
+    package "Servicios (Casos de Uso)" {
+        class ConfirmarVentaService
+    }
+
+    package "Dominio" {
+        class Venta {
+            -estado: EstadoVenta
+            +setEstado(estado: EstadoVenta): void
+        }
+    }
 }
 
-class DetalleVenta {
-  -producto: Producto
-  -cantidad: int
-  -precioCapturado: double
-  +subtotal(): double
-}
-
-Venta "1" *-- "1..*" DetalleVenta : contiene
-DetalleVenta --> "1" Producto : referencia
-
-note right of DetalleVenta
-  precioCapturado se copia al
-  agregar el detalle; no cambia
-  aunque después cambie el
-  precio del catálogo.
-end note
-
-note right of Venta
-  detalles nunca se expone
-  directamente; solo se
-  modifica vía agregarDetalle().
-end note
+' Relaciones de Arquitectura Hexagonal
+ConfirmarVentaUseCase <|.. ConfirmarVentaService : "Implementa (Puerto Entrada)"
+ConfirmarVentaService ..> Venta : "Modifica estado"
+ConfirmarVentaService --> VentaRepository : "Usa (Puerto Salida)"
+VentaRepository <|.. InMemoryVentaRepository : "Depende de (Inversión de Dependencia)"
 
 @enduml
