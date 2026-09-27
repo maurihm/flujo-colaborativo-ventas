@@ -4,12 +4,20 @@ import ventas.domain.EstadoVenta;
 import ventas.domain.Venta;
 import ventas.ports.in.ConfirmarVentaUseCase;
 import ventas.ports.out.VentaRepository;
+import ventas.domain.VentaObserver;
+import ventas.domain.VentaConfirmada;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ConfirmarVentaService implements ConfirmarVentaUseCase {
     private final VentaRepository repository;
-
+    private final List<VentaObserver> observadores = new ArrayList<>();
     public ConfirmarVentaService(VentaRepository repository) {
         this.repository = repository;
+    }
+
+    public void agregarObservador(VentaObserver obs) {
+        observadores.add(obs);
     }
 
     @Override
@@ -25,5 +33,7 @@ public class ConfirmarVentaService implements ConfirmarVentaUseCase {
         
         // Guardamos el cambio en el repositorio
         repository.guardar(venta);
+        
+        observadores.forEach(o -> o.alConfirmar(new VentaConfirmada(venta)));
     }
 }
