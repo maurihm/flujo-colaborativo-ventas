@@ -6,6 +6,7 @@ import ventas.domain.Cliente;
 import ventas.domain.EstadoVenta;
 import ventas.domain.Venta;
 import ventas.ports.out.VentaRepository;
+import ventas.application.SinDescuento;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ class CrearVentaServiceTest {
         CrearVentaService service = new CrearVentaService(repository);
         
         Cliente cliente = new Cliente(1L, "Juan", "Pérez", "123456789");
-        ComandoCrearVenta comando = new ComandoCrearVenta(cliente);
+        ComandoCrearVenta comando = new ComandoCrearVenta(cliente, new SinDescuento());
 
         // Act (Actuar)
         Venta ventaCreada = service.crearVenta(comando);

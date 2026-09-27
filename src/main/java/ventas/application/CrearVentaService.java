@@ -1,4 +1,6 @@
 package ventas.application;
+
+import ventas.domain.Dinero;
 import ventas.domain.Venta;
 import ventas.domain.VentaFactory;
 import ventas.ports.in.CrearVentaUseCase;
@@ -15,8 +17,14 @@ public class CrearVentaService implements CrearVentaUseCase {
 
     @Override
     public Venta crearVenta(ComandoCrearVenta comando) {
+        
         Venta venta = VentaFactory.crear(comando.getCliente());
+               
+        Dinero subtotal = venta.calcularTotal();
+        Dinero totalConDescuento = comando.getPolitica().aplicar(subtotal);
+        
         ventaRepository.guardar(venta);
+        
         return venta;
     }
 }
