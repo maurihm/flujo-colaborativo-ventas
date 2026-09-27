@@ -36,12 +36,23 @@ public class Venta {
         this.estado = estado;
     }
 
+
+
     public void agregarDetalle(Producto producto, int cantidad) {
         if (this.estado != EstadoVenta.NUEVA) {
             throw new IllegalStateException("No se pueden agregar detalles a una venta " + this.estado);
         }
         detalles.add(new DetalleVenta(producto, cantidad));
     }
+
+    public void agregarDetalle(DetalleVenta detalle) {
+        if (this.estado != EstadoVenta.NUEVA) {
+            throw new IllegalStateException("No se pueden agregar detalles a una venta " + this.estado);
+        }
+        detalles.add(detalle);
+    }
+
+    
 
     public List<DetalleVenta> getDetalles() {
         return Collections.unmodifiableList(detalles);
