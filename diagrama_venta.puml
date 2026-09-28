@@ -4,51 +4,64 @@ skinparam classAttributeIconSize 0
 skinparam monochrome true
 skinparam shadowing false
 skinparam packageStyle rectangle
+skinparam linetype ortho
 
 package "Adaptadores (Exterior)" {
     class InMemoryVentaRepository
     class InMemoryProductoRepository
 }
 
-package "Núcleo de la Aplicación (Dominio y Casos de Uso)" {
+package "Núcleo de la Aplicación" {
     package "Puertos (Interfaces)" {
-        interface CrearVentaUseCase
-        interface RegistrarProductoUseCase
-        interface ConfirmarVentaUseCase
         interface VentaRepository
-        interface ProductoRepository
+        interface ConfirmarVentaUseCase
     }
 
-    package "Servicios de Aplicación" {
-        class CrearVentaService
-        class RegistrarProductoService
+    package "Aplicación (Servicios y Casos de Uso)" {
+        class VentaFacade <<Facade>>
         class ConfirmarVentaService
+        
+        interface PoliticaDescuento <<Strategy>>
+        class DescuentoEstudiante
+        class SinDescuento
+        
+        class ActualizadorInventario
+        class BitacoraVenta
     }
 
     package "Dominio (Reglas de Negocio)" {
         class Venta
         class Producto
-        class Cliente
+        
+        class VentaFactory <<Factory>>
+        class DetalleVentaFactory <<Factory>>
+        
+        interface VentaObserver <<Observer>>
     }
 }
 
-' Relaciones de los Adaptadores (Inversión de Dependencias apuntando hacia adentro)
-VentaRepository <|.. InMemoryVentaRepository : Implementa
-ProductoRepository <|.. InMemoryProductoRepository : Implementa
+' Implementación de Adaptadores
+VentaRepository <|.. InMemoryVentaRepository
+ConfirmarVentaUseCase <|.. ConfirmarVentaService
 
-' Relaciones de la Capa de Aplicación
-CrearVentaUseCase <|.. CrearVentaService : Implementa
-RegistrarProductoUseCase <|.. RegistrarProductoService : Implementa
-ConfirmarVentaUseCase <|.. ConfirmarVentaService : Implementa
+' Relaciones del Patrón Facade (El Orquestador)
+VentaFacade --> VentaFactory : Usa
+VentaFacade --> DetalleVentaFactory : Usa
+VentaFacade --> VentaRepository : Guarda
+VentaFacade --> ConfirmarVentaService : Delega
+VentaFacade ..> PoliticaDescuento : Aplica descuento
 
-CrearVentaService --> VentaRepository : Usa
-RegistrarProductoService --> ProductoRepository : Usa
-ConfirmarVentaService --> VentaRepository : Usa
+' Relaciones del Patrón Strategy
+PoliticaDescuento <|.. DescuentoEstudiante
+PoliticaDescuento <|.. SinDescuento
 
-' Relaciones hacia el Dominio
-CrearVentaService --> Venta : Instancia / Usa
-CrearVentaService --> Cliente : Usa
-RegistrarProductoService --> Producto : Instancia
-ConfirmarVentaService --> Venta : Modifica estado
+' Relaciones del Patrón Observer
+VentaObserver <|.. ActualizadorInventario
+VentaObserver <|.. BitacoraVenta
+ConfirmarVentaService o--> VentaObserver : Notifica lista de observadores
+
+' Relaciones del Patrón Factory
+VentaFactory ..> Venta : Instancia objeto válido
+DetalleVentaFactory ..> Producto : Vincula
 
 @enduml
