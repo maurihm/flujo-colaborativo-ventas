@@ -30,3 +30,10 @@ Se creó la prueba `VentaFacadeTest` utilizando infraestructura en memoria (`InM
 ## Costos y Limitaciones de la Decisión
 - **Costo:** Rechazar el Singleton requiere inyectar explícitamente las dependencias (Repositorios y Servicios) a través del constructor de la Fachada.
 - **Limitación:** El Facade actual asume un flujo lineal de venta directa. Si se requieren flujos alternativos, la clase tendría que expandirse.
+
+## Corrección de Calidad de Código (SonarQube)
+Adicional a la implementación del Facade, me encargué de limpiar los 6 *Code Smells* detectados por SonarQube en la rama principal para asegurar un "Quality Gate Passed" perfecto:
+- Se reemplazó el uso de `System.out` por `java.util.logging.Logger` en `BitacoraVenta`.
+- Se eliminaron variables de asignación inútiles (`totalConDescuento`) y parámetros sin uso (`PoliticaDescuento politica` en el Facade).
+- Se retiró el modificador `public` en las clases de prueba (`ObserverTest` y `VentaFacadeTest`) para cumplir con las mejores prácticas de JUnit 5.
+- Se actualizó el diagrama de arquitectura para reflejar la desvinculación de `PoliticaDescuento` del `VentaFacade`.
