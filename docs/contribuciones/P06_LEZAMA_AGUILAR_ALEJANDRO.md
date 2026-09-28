@@ -16,7 +16,7 @@ Además, se modificó `CrearVentaService` para que utilice el Factory, eliminand
 
 ### Evidencias en GitHub
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/19
-- **Pull Request (PR):** 
-- **Commits:**
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/21 
+- **Commits:**https://github.com/maurihm/flujo-colaborativo-ventas/pull/21/commits
   - `feat: implementar VentaFactory y DetalleVentaFactory`
   - `test: agregar pruebas unitarias para validación de invariantes en Factory`
