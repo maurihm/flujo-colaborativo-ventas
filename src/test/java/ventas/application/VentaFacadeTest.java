@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class VentaFacadeTest {
+class VentaFacadeTest {
 
     @Test
     void procesarVentaCompletaDebeCrearGuardarYConfirmar() {
@@ -21,10 +21,9 @@ public class VentaFacadeTest {
         Cliente cliente = new Cliente(1L, "Axel", "Garcia", "555-0000");
         Producto producto = new Producto(1L, "Teclado", new Dinero(500.0), 10, Categoria.ELECTRONICA);
 
-        // Act: Ejecutar la fachada (orquestador completo)
+        // Act: Ejecutar la fachada (sin el argumento de politica de descuento)
         Venta ventaProcesada = facade.procesarVentaCompleta(
                 cliente, 
-                new SinDescuento(), // Patrón Strategy inyectado
                 List.of(producto), 
                 List.of(2)
         );
@@ -34,7 +33,7 @@ public class VentaFacadeTest {
         assertEquals(cliente, ventaProcesada.getCliente(), "El cliente debe asignarse correctamente");
         assertEquals(1, ventaProcesada.getDetalles().size(), "Debe tener exactamente 1 detalle de venta");
         
-        // Verificar que la confirmación funcionó (Observer debió cambiar el estado)
+        // Verificar que la confirmación funcionó
         assertEquals(EstadoVenta.PAGADA, ventaProcesada.getEstado(), "El estado de la venta debe ser PAGADA tras confirmar");
     }
 }

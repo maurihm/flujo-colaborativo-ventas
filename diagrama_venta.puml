@@ -49,7 +49,6 @@ VentaFacade --> VentaFactory : Usa
 VentaFacade --> DetalleVentaFactory : Usa
 VentaFacade --> VentaRepository : Guarda
 VentaFacade --> ConfirmarVentaService : Delega
-VentaFacade ..> PoliticaDescuento : Aplica descuento
 
 ' Relaciones del Patrón Strategy
 PoliticaDescuento <|.. DescuentoEstudiante
