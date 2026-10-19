@@ -100,7 +100,7 @@ public class CarritoPanel extends JPanel {
         double total = conDescuento.getMonto() + iva;
 
         lblSubtotal.setText(String.format("Subtotal: $%.2f", conDescuento.getMonto()));
-        lblIva.setText(String.format("IVA (16%): $%.2f", iva));
+        lblIva.setText(String.format("IVA (16%%): $%.2f", iva));
         lblTotal.setText(String.format("TOTAL: $%.2f", total));
     }
 
