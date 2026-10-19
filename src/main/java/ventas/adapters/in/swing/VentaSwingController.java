@@ -15,6 +15,9 @@ import java.util.concurrent.ExecutionException;
 public class VentaSwingController {
     private final RegistrarProductoService registrarService;
     private final VentaFacade ventaFacade;
+    
+    // FIX SONARQUBE: Constante para evitar duplicar el texto "Error"
+    private static final String ERROR_TITLE = "Error"; 
 
     public VentaSwingController(RegistrarProductoService registrarService, VentaFacade ventaFacade) {
         this.registrarService = registrarService;
@@ -48,8 +51,11 @@ public class VentaSwingController {
                     model.agregarProducto(nuevo);
                     form.limpiar();
                     JOptionPane.showMessageDialog(parent, "Producto " + nuevo.getNombre() + " registrado!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                } catch (InterruptedException | ExecutionException e) {
-                    JOptionPane.showMessageDialog(parent, "Error al registrar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    JOptionPane.showMessageDialog(parent, "Error al registrar: " + e.getMessage(), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+                } catch (ExecutionException e) {
+                    JOptionPane.showMessageDialog(parent, "Error al registrar: " + e.getMessage(), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
@@ -86,8 +92,11 @@ public class VentaSwingController {
                     JOptionPane.showMessageDialog(parent,
                             "¡Venta confirmada exitosamente!\nFolio: " + venta.getId() + "\nTotal: $" + venta.calcularTotal().getMonto(),
                             "Venta Exitosa", JOptionPane.INFORMATION_MESSAGE);
-                } catch (InterruptedException | ExecutionException e) {
-                    JOptionPane.showMessageDialog(parent, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    JOptionPane.showMessageDialog(parent, "Error: " + e.getMessage(), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+                } catch (ExecutionException e) {
+                    JOptionPane.showMessageDialog(parent, "Error: " + e.getMessage(), ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 }
             }
         };

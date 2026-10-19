@@ -9,7 +9,7 @@ public class ProductoTableModel extends AbstractTableModel {
 
     private static final long serialVersionUID = 1L;
     private final String[] columnas = {"Código", "Nombre", "Precio", "Stock", "Categoría"};
-    private final List<Producto> productos;
+    private final transient List<Producto> productos;
 
     public ProductoTableModel() {
         this.productos = new ArrayList<>();

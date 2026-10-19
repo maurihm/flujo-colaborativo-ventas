@@ -33,7 +33,7 @@ public class SwingApplication {
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) { /* ignorado intencionalmente */ }
             MainFrame frame = new MainFrame(controller, tableModel);
             frame.pack();
             frame.setLocationRelativeTo(null);

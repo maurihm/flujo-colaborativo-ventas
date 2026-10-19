@@ -9,7 +9,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(VentaSwingController controller, ProductoTableModel tableModel) {
         super("Sistema de Ventas Cliente Swing (P07)");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
         CatalogoPanel catalogoPanel = new CatalogoPanel(tableModel);
@@ -34,13 +34,9 @@ public class MainFrame extends JFrame {
             carritoPanel.agregarItem(seleccionado, cant);
         });
 
-        formularioPanel.getBtnRegistrar().addActionListener(e -> {
-            controller.registrarProductoAsync(formularioPanel, tableModel, this);
-        });
+        formularioPanel.getBtnRegistrar().addActionListener(e -> controller.registrarProductoAsync(formularioPanel, tableModel, this));
 
-        carritoPanel.getBtnConfirmarVenta().addActionListener(e -> {
-            controller.procesarVentaAsync(carritoPanel, this);
-        });
+        carritoPanel.getBtnConfirmarVenta().addActionListener(e -> controller.procesarVentaAsync(carritoPanel, this));
 
         JSplitPane splitCentro = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, catalogoPanel, carritoPanel);
         splitCentro.setResizeWeight(0.55);
