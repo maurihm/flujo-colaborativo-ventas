@@ -15,4 +15,4 @@ Implementé VentaSwingController con SwingWorker, la ventana principal MainFrame
 ### Evidencias en GitHub
 - **Rama:** `feature/controlador-swingworker-app`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/34
-- **Pull Request (PR):** 
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/35
