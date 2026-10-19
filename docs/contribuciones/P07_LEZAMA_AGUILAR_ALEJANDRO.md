@@ -15,6 +15,6 @@ En arquitecturas limpias y Swing, enlazar componentes gráficos directamente con
 
 ### Evidencias en GitHub
 - **Rama:** `feature/catalogo-tablemodel`
-- **Issue:** [PEGAR LINK DEL ISSUE AQUÍ]
-- **Pull Request (PR):** [PEGAR LINK DEL PR AQUÍ]
-- **Commit:** [PEGAR LINK DEL COMMIT AQUÍ]
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/28
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/29
+- **Commits:** https://github.com/maurihm/flujo-colaborativo-ventas/pull/29/commits
