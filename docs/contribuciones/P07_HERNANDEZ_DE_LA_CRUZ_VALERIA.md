@@ -14,4 +14,4 @@ Implementé FormularioProductoPanel con validación exhaustiva de tipos de datos
 ### Evidencias en GitHub
 - Rama: `feature/formulario-validaciones`
 - Issue: https://github.com/maurihm/flujo-colaborativo-ventas/issues/30
-- Pull Request (PR): [PEGAR LINK DEL PR AQUÍ]
+- Pull Request (PR): https://github.com/maurihm/flujo-colaborativo-ventas/pull/31
