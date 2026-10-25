@@ -17,6 +17,6 @@ La arquitectura requería reemplazar la persistencia en memoria por persistencia
 
 ### Evidencias en GitHub
 - **Rama:** `feature/jdbc-producto-ddl`
-- **Issue:** [PEGAR LINK DEL ISSUE DE ALEJANDRO]
-- **Pull Request (PR):** [PEGAR LINK DEL PR DE ALEJANDRO]
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/36
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/37
 - **Revisor Asignado:** Valeria Hernández De la Cruz
