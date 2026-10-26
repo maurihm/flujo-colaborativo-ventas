@@ -1,13 +1,17 @@
 # ventas-tcsw
 
-Prototipo progresivo de ventas para la EE **Tecnologías para la Construcción de Software** (UV).
-Este incremento corresponde a **P02. Venta en memoria**, y se construye sobre lo entregado en P01.
+Sistema de punto de venta desarrollado para la EE **Tecnologías para la Construcción de Software (TCSW-19234)** — Universidad Veracruzana.
 
-## Requisitos
+Esta versión consolida la **Práctica P08 (M10 + M11): Persistencia Relacional JDBC con PostgreSQL 16 y Transacciones Atómicas**, preservando la **Arquitectura Hexagonal**, los patrones de diseño GoF (Factory, Strategy, Observer, Facade) y el cliente gráfico con Java Swing + `SwingWorker`.
 
-- Java 11 (JDK)
-- Maven 3.9.x
-- Git
+---
+
+## Requisitos y versiones
+
+- **Java:** JDK 11
+- **Maven:** 3.9.x
+- **Docker y Docker Compose:** Contenedor `postgres:16-alpine`
+- **Git:** 2.x
 
 Verifica tu entorno antes de continuar:
 
@@ -15,92 +19,105 @@ Verifica tu entorno antes de continuar:
 java -version
 javac -version
 mvn -version
+docker --version
+docker compose version
 ```
 
-## Clonar el repositorio
+---
+
+## Guía breve de reproducción (P08)
+
+### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/maurihm/ventas-tcsw.git
-cd ventas-tcsw
+git clone https://github.com/maurihm/flujo-colaborativo-ventas.git
+cd flujo-colaborativo-ventas
+git checkout main
 ```
 
-## Compilar y ejecutar las pruebas
+### 2. Iniciar PostgreSQL 16 en Docker Compose
+
+El archivo `docker-compose.yml` levanta PostgreSQL 16 y ejecuta automáticamente el esquema DDL (`src/main/resources/schema.sql`):
+
+```bash
+docker compose up -d
+```
+
+> **Nota:** Si el puerto local `5432` ya está ocupado en tu máquina, puedes usar otro puerto configurable mediante variables de entorno:
+> ```bash
+> DB_PORT=5433 docker compose up -d
+> export DB_URL="jdbc:postgresql://localhost:5433/ventas_tcsw"
+> ```
+
+### 3. Compilar y ejecutar todas las pruebas (`mvn clean test`)
+
+Ejecuta las **60 pruebas automatizadas** (dominio, aplicación, arquitectura con ArchUnit, vistas Swing e integración JDBC/transacciones con PostgreSQL):
 
 ```bash
 mvn clean test
 ```
 
-Si todo funciona correctamente, la salida debe terminar con:
+La salida debe finalizar con:
 
-```
+```text
+Tests run: 60, Failures: 0, Errors: 0, Skipped: 0
+...
 BUILD SUCCESS
 ```
 
-## Estructura del proyecto
+### 4. Ejecutar la interfaz gráfica Swing (opcional)
 
+```bash
+mvn compile exec:java -Dexec.mainClass="ventas.adapters.in.swing.SwingApplication"
 ```
-ventas-tcsw/
+
+---
+
+## Estructura del proyecto (Arquitectura Hexagonal)
+
+```text
+flujo-colaborativo-ventas/
 ├── pom.xml
+├── docker-compose.yml
 ├── README.md
-├── .gitignore
-├── diagrama_venta.puml
+├── docs/
+│   ├── P05-arquitectura.md
+│   ├── P06-patrones.md
+│   └── contribuciones/
+│       ├── P08_EQUIPO_01.md
+│       ├── P08_LEZAMA_AGUILAR_ALEJANDRO.md
+│       ├── P08_HERNANDEZ_DE_LA_CRUZ_VALERIA.md
+│       ├── P08_HERNANDEZ_MARTINEZ_MAURICIO.md
+│       └── P08_GARCIA_LOYO_AXEL_URIEL.md
 └── src/
-    ├── main/java/ventas/domain/
-    │   ├── Producto.java
-    │   ├── Dinero.java
-    │   ├── DetalleVenta.java
-    │   └── Venta.java
-    └── test/java/ventas/domain/
-        ├── ProductoTest.java
-        ├── DineroTest.java
-        └── VentaTest.java
+    ├── main/
+    │   ├── resources/
+    │   │   └── schema.sql
+    │   └── java/ventas/
+    │       ├── domain/                  # Núcleo puro (Producto, Venta, DetalleVenta, Cliente, Dinero)
+    │       ├── ports/
+    │       │   ├── in/                  # Casos de uso
+    │       │   └── out/                 # ProductoRepository, VentaRepository
+    │       ├── application/             # Servicios de aplicación y VentaFacade
+    │       └── adapters/
+    │           ├── in/swing/            # Adaptador primario MVC con Swing y SwingWorker
+    │           └── out/
+    │               ├── memory/          # Adaptadores en memoria
+    │               └── jdbc/            # ConexionBD, ProductoJdbcRepository, VentaJdbcRepository
+    └── test/java/ventas/
+        ├── ArchitectureTest.java        # Reglas ArchUnit
+        ├── domain/                      # Pruebas unitarias del dominio
+        ├── application/                 # Pruebas de casos de uso y patrones
+        └── adapters/
+            ├── in/swing/                # Pruebas de componentes Swing
+            └── out/jdbc/                # Pruebas de integración JDBC y transacciones (M10/M11)
 ```
 
-## Modelo de este incremento (P02)
+---
 
-`Venta` compone `DetalleVenta`: una venta controla su propia lista de detalles y nunca la expone
-directamente, solo permite modificarla mediante `agregarDetalle(producto, cantidad)`.
-`DetalleVenta` referencia a `Producto`, pero no lo compone (un producto existe
-independientemente de que aparezca o no en un detalle de venta).
+## Aspectos destacados de P08 (M10 + M11)
 
-`Dinero` es un objeto valor: representa un monto monetario, es inmutable, y se compara
-por su valor (dos instancias con el mismo monto se consideran iguales), no por identidad.
-Tanto `Producto` como `DetalleVenta` usan `Dinero` en lugar de un `double` suelto para
-representar precios y subtotales.
-
-Diagrama completo (fuente editable en `diagrama_venta.puml`, abrir en
-[plantuml.com/plantuml](https://www.plantuml.com/plantuml)).
-
-## Invariantes protegidas en este incremento
-
-1. Una venta no acepta un detalle con cantidad cero o negativa.
-2. El precio capturado en un `DetalleVenta` no cambia aunque después cambie el precio
-   del `Producto` en el catálogo.
-3. La lista de detalles de una `Venta` no puede modificarse directamente desde fuera;
-   solo a través de `agregarDetalle()`.
-4. `Dinero` nunca representa un monto negativo.
-
-## Decisiones de diseño
-
-| Decisión | Alternativa considerada | Consecuencia |
-|---|---|---|
-| Crear `Dinero` como objeto valor en lugar de usar `double` directamente para los precios | Mantener `double` suelto en `Producto` y `DetalleVenta` | Se gana una comparación por valor consistente (`equals`/`hashCode`) y operaciones (`sumar`, `multiplicar`) que no permiten construir un monto negativo, a costa de una clase adicional |
-| Copiar el precio al detalle (`precioCapturado`) en lugar de consultarlo siempre en `Producto` | Guardar solo una referencia al producto y leer su precio actual al calcular el total | Se duplica un dato, pero se conserva el valor histórico de la venta aunque el catálogo cambie después |
-| `Venta` expone `getDetalles()` como lista no modificable (`Collections.unmodifiableList`) | Devolver la lista interna directamente | Se evita que código externo agregue detalles sin pasar por `agregarDetalle()`, protegiendo la invariante de cantidad válida |
-
-## Pruebas incluidas
-
-**DineroTest** (5 pruebas):
-creación válida, rechazo de monto negativo, igualdad por valor, suma de montos,
-multiplicación por un factor.
-
-**ProductoTest** (7 pruebas):
-creación válida, rechazo de precio nulo, rechazo de existencia negativa, descuento válido,
-rechazo de descuentos inválidos, conservación de estado tras un rechazo.
-
-**VentaTest** (5 pruebas):
-- Agregar un detalle válido y calcular su subtotal.
-- Rechazar cantidad cero o negativa al agregar un detalle.
-- Calcular el total como suma de varios subtotales.
-- Verificar que el precio capturado no cambie si el producto cambia de precio después.
-- Verificar que la lista de detalles no se pueda modificar directamente desde fuera.
+- **Esquema relacional (`src/main/resources/schema.sql`):** Tablas `producto`, `venta` y `detalle_venta` con restricciones `PRIMARY KEY`, `FOREIGN KEY ... ON DELETE CASCADE`, `NOT NULL` y `CHECK` (`precio >= 0`, `existencia >= 0`, `cantidad > 0`, `total >= 0`).
+- **Prevención de SQL Injection y fugas de recursos (`M10`):** Uso estricto de `PreparedStatement` y bloques `try-with-resources` en `ProductoJdbcRepository` y `VentaJdbcRepository`.
+- **Coordinación transaccional atómica (`M11`):** En `VentaJdbcRepository.guardar(Venta)`, se desactiva el auto-commit (`cn.setAutoCommit(false)`), se registra el encabezado, se insertan los detalles en `detalle_venta` y se descuenta el stock en `producto` (`WHERE codigo = ? AND existencia >= ?`). Si ocurre cualquier fallo, se invoca `cn.rollback()` garantizando cero estados parciales.
+- **Trazabilidad del equipo (`R01`):** Consulta el índice completo de evidencias en [`docs/contribuciones/P08_EQUIPO_01.md`](docs/contribuciones/P08_EQUIPO_01.md).
