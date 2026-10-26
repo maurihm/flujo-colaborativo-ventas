@@ -6,7 +6,6 @@ import ventas.domain.Cliente;
 import ventas.domain.EstadoVenta;
 import ventas.domain.Venta;
 import ventas.ports.out.VentaRepository;
-import ventas.application.SinDescuento;
 
 import static org.junit.jupiter.api.Assertions.*;
 

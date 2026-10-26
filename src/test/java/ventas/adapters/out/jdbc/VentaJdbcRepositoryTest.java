@@ -30,7 +30,9 @@ class VentaJdbcRepositoryTest {
                        "estado VARCHAR(30) NOT NULL, " +
                        "fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
             st.execute("DELETE FROM venta WHERE id = 'V-TEST-001'");
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+            // Se ignora si la tabla aun no contiene el registro de prueba
+        }
     }
 
     @Test

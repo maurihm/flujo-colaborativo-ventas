@@ -30,7 +30,9 @@ class TransaccionVentaExitosaTest {
             st.execute("DELETE FROM detalle_venta WHERE venta_id = 'V-TX-001'");
             st.execute("DELETE FROM venta WHERE id = 'V-TX-001'");
             st.execute("DELETE FROM producto WHERE codigo = 601");
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+            // Se ignora si las tablas aun no contienen registros previos
+        }
     }
 
     @Test
