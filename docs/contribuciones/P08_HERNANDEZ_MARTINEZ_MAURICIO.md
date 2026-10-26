@@ -17,5 +17,5 @@ Evitar que una venta parcial quede registrada si fallara la inserción de algún
 ### Evidencias en GitHub
 - **Rama:** `feature/transaccion-venta-detalles`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/40
-- **Pull Request (PR):** [PEGAR LINK DEL PR AQUÍ]
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/41
 - **Revisor Asignado:** Axel Uriel García Loyo
