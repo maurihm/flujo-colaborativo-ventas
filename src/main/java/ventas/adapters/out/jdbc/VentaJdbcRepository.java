@@ -25,9 +25,8 @@ public class VentaJdbcRepository implements VentaRepository {
         Connection cn = null;
         try {
             cn = ConexionBD.obtenerConexion();
-            cn.setAutoCommit(false); // Inicia frontera transaccional M11
+            cn.setAutoCommit(false);
 
-            // 1. Insertar encabezado de venta
             try (PreparedStatement psVenta = cn.prepareStatement(sqlVenta)) {
                 psVenta.setString(1, venta.getId());
                 if (venta.getCliente() != null) {
@@ -46,7 +45,6 @@ public class VentaJdbcRepository implements VentaRepository {
                 psVenta.executeUpdate();
             }
 
-            // 2. Insertar detalles y descontar existencia atómicamente
             if (!venta.getDetalles().isEmpty()) {
                 try (PreparedStatement psDetalle = cn.prepareStatement(sqlDetalle);
                      PreparedStatement psStock = cn.prepareStatement(sqlDescontarStock)) {
@@ -69,13 +67,12 @@ public class VentaJdbcRepository implements VentaRepository {
                 }
             }
 
-            cn.commit(); // Confirmación de la unidad atómica
+            cn.commit(); 
         } catch (Exception e) {
             if (cn != null) {
                 try {
-                    cn.rollback(); // Reversión completa ante fallo
+                    cn.rollback(); 
                 } catch (SQLException exRollback) {
-                    // Se preserva la causa raíz
                 }
             }
             throw new RuntimeException("Transacción de venta fallida: " + e.getMessage(), e);
@@ -92,8 +89,10 @@ public class VentaJdbcRepository implements VentaRepository {
     @Override
     public Venta buscarPorId(String id) {
         String sql = "SELECT id, cliente_codigo, cliente_nombre, cliente_apellido, cliente_telefono, total, estado FROM venta WHERE id = ?";
+
         try (Connection cn = ConexionBD.obtenerConexion();
              PreparedStatement ps = cn.prepareStatement(sql)) {
+             
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
