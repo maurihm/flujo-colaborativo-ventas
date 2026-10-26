@@ -15,4 +15,4 @@ Comprobar de forma científica y verificable que un fallo intermedio durante el 
 ### Evidencias en GitHub
 - **Rama:** `feature/transaccion-rollback-consistencia`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/42
-- **Pull Request (PR):** 
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/43
