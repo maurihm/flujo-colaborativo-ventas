@@ -18,5 +18,5 @@ La arquitectura hexagonal exige que los adaptadores de infraestructura puedan in
 ### Evidencias en GitHub
 - **Rama:** `feature/c02-hibernate-repositorios-transaccion`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/48
-- **Pull Request (PR):** [PEGAR LINK DEL PR DE MAURICIO]
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/49
 - **Revisor Asignado:** Axel Uriel García Loyo
