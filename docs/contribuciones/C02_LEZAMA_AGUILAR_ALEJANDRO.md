@@ -15,6 +15,6 @@ En P07 el cliente Swing dependía de `InMemoryProductoRepository`, por lo que to
 
 ### Evidencias en GitHub
 - **Rama:** `feature/c02-swing-postgresql-integracion`
-- **Issue:** [PEGAR LINK DEL ISSUE DE ALEJANDRO]
-- **Pull Request (PR):** [PEGAR LINK DEL PR DE ALEJANDRO]
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/44
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/45
 - **Revisor Asignado:** Valeria Hernández De la Cruz
