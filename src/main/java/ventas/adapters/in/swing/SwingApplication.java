@@ -20,8 +20,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwingApplication {
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+public class SwingApplication {
+private static final Logger LOGGER = Logger.getLogger(SwingApplication.class.getName());
     public static void main(String[] args) {
         // Adaptadores reales de persistencia relacional en PostgreSQL
         ProductoRepository productoRepo = new ProductoJdbcRepository();
@@ -83,7 +86,7 @@ public class SwingApplication {
                 lista.add(new Producto(cod, nom, new Dinero(pre), exi, cat));
             }
         } catch (SQLException e) {
-            System.err.println("Aviso: No se pudo precargar catálogo desde PostgreSQL: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Aviso: No se pudo precargar catálogo desde PostgreSQL", e);
         }
         return lista;
     }
