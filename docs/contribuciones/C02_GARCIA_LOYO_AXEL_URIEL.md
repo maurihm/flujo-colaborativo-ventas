@@ -16,6 +16,6 @@ El instrumento R03 (Criterios 3 y 4) exige demostrar que los errores se controla
 ### Evidencias en GitHub
 - **Rama:** `feature/c02-rollback-etiqueta-entrega`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/50
-- **Pull Request (PR):** 
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/51
 - **Etiqueta Oficial:** `v0.2-escritorio`
 - **Revisor Asignado:** Mauricio Hernández Martínez
