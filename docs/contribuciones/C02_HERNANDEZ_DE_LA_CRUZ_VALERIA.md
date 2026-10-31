@@ -17,5 +17,5 @@ La rúbrica R03 (Criterio 2: Hibernate y PostgreSQL) evalúa la evolución del p
 ### Evidencias en GitHub
 - **Rama:** `feature/c02-hibernate-entidades-mapeo`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/46
-- **Pull Request (PR):** [PEGAR LINK DEL PR DE VALERIA]
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/47
 - **Revisor Asignado:** Alejandro Lezama Aguilar
