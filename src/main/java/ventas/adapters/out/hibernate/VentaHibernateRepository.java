@@ -57,7 +57,7 @@ public class VentaHibernateRepository implements VentaRepository {
                     tx.rollback();
                 }
                 session.clear();
-                throw new RuntimeException("Error en transaccion Hibernate de Registrar Venta: " + e.getMessage(), e);
+                throw new IllegalStateException("Error en transaccion Hibernate de Registrar Venta: " + e.getMessage(), e);
             }
         }
     }
@@ -126,7 +126,7 @@ public class VentaHibernateRepository implements VentaRepository {
                 return venta;
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error al consultar venta con Hibernate: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al consultar venta con Hibernate: " + e.getMessage(), e);
         }
         return null;
     }

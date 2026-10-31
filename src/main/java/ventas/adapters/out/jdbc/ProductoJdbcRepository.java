@@ -34,7 +34,7 @@ public class ProductoJdbcRepository implements ProductoRepository {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al guardar producto en BD: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al guardar producto en BD: " + e.getMessage(), e);
         }
     }
 
@@ -59,7 +59,7 @@ public class ProductoJdbcRepository implements ProductoRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al consultar producto en BD: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al consultar producto en BD: " + e.getMessage(), e);
         }
 
         return Optional.empty();

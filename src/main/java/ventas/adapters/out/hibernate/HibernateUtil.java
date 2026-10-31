@@ -7,8 +7,11 @@ import org.hibernate.service.ServiceRegistry;
 import ventas.adapters.out.hibernate.entity.DetalleVentaEntity;
 import ventas.adapters.out.hibernate.entity.ProductoEntity;
 import ventas.adapters.out.hibernate.entity.VentaEntity;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HibernateUtil {
+    private static final Logger LOGGER = Logger.getLogger(HibernateUtil.class.getName());
     private static SessionFactory sessionFactory;
 
     private HibernateUtil() {}
@@ -37,8 +40,7 @@ public class HibernateUtil {
                         .applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
-                System.err.println("Error al inicializar Hibernate SessionFactory: " + e.getMessage());
-            }
+LOGGER.log(Level.SEVERE, "Error al inicializar Hibernate SessionFactory", e);            }
         }
         return sessionFactory;
     }
