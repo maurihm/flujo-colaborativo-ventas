@@ -37,23 +37,28 @@ public class VentaHibernateRepository implements VentaRepository {
         if (sessionFactory == null) {
             return;
         }
-        Transaction tx = null;
+        // FIX: try-with-resources externo para SonarQube (0 Code Smells)
         try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
 
-            VentaEntity ventaEntity = mapearEncabezado(venta);
-            session.save(ventaEntity);
+                VentaEntity ventaEntity = mapearEncabezado(venta);
+                session.save(ventaEntity);
 
-            for (DetalleVenta d : venta.getDetalles()) {
-                persistirDetalleYDescontarStock(session, ventaEntity, d);
+                for (DetalleVenta d : venta.getDetalles()) {
+                    persistirDetalleYDescontarStock(session, ventaEntity, d);
+                }
+
+                tx.commit();
+            } catch (Exception e) {
+                // El rollback ocurre ANTES de que se cierre la sesión
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+                session.clear();
+                throw new RuntimeException("Error en transaccion Hibernate de Registrar Venta: " + e.getMessage(), e);
             }
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw new RuntimeException("Error en transaccion Hibernate de Registrar Venta: " + e.getMessage(), e);
         }
     }
 
