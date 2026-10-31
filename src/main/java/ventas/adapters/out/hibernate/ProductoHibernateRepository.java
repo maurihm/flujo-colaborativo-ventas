@@ -49,7 +49,7 @@ public class ProductoHibernateRepository implements ProductoRepository {
             if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Error al guardar producto con Hibernate: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al guardar producto con Hibernate: " + e.getMessage(), e);
         }
     }
 
@@ -70,7 +70,7 @@ public class ProductoHibernateRepository implements ProductoRepository {
                 ));
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error al consultar producto con Hibernate: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al consultar producto con Hibernate: " + e.getMessage(), e);
         }
         return Optional.empty();
     }

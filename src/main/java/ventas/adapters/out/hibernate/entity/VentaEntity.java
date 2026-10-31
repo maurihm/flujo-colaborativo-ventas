@@ -37,7 +37,9 @@ public class VentaEntity {
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<DetalleVentaEntity> detalles = new ArrayList<>();
 
-    public VentaEntity() {}
+    public VentaEntity() {
+        // Constructor vacío requerido por la especificación JPA/Hibernate
+    }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }

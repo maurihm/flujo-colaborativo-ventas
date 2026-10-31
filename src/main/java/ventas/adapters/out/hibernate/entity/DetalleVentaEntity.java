@@ -27,7 +27,9 @@ public class DetalleVentaEntity {
     @Column(name = "subtotal", nullable = false, precision = 12, scale = 2)
     private BigDecimal subtotal;
 
-    public DetalleVentaEntity() {}
+    public DetalleVentaEntity() {
+        // Constructor vacío requerido por la especificación JPA/Hibernate
+    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

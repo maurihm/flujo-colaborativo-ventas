@@ -41,7 +41,7 @@ public class VentaJdbcRepository implements VentaRepository {
             cn.commit();
         } catch (Exception e) {
             revertirSilenciosamente(cn);
-            throw new RuntimeException("Transacción de venta fallida: " + e.getMessage(), e);
+            throw new IllegalStateException("Transacción de venta fallida: " + e.getMessage(), e);
         } finally {
             cerrarSilenciosamente(cn);
         }
@@ -138,7 +138,7 @@ public class VentaJdbcRepository implements VentaRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al buscar venta en BD: " + e.getMessage(), e);
+            throw new IllegalStateException("Error al buscar venta en BD: " + e.getMessage(), e);
         }
         return null;
     }
