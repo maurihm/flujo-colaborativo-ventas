@@ -10,6 +10,9 @@ import ventas.domain.Producto;
 import ventas.ports.out.ProductoRepository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -73,5 +76,30 @@ public class ProductoHibernateRepository implements ProductoRepository {
             throw new IllegalStateException("Error al consultar producto con Hibernate: " + e.getMessage(), e);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Producto> listarTodos() {
+        if (sessionFactory == null) {
+            return Collections.emptyList();
+        }
+        try (Session session = sessionFactory.openSession()) {
+            List<ProductoEntity> entities = session.createQuery(
+                    "FROM ProductoEntity ORDER BY codigo ASC", ProductoEntity.class
+            ).list();
+            List<Producto> resultado = new ArrayList<>();
+            for (ProductoEntity entity : entities) {
+                resultado.add(new Producto(
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        new Dinero(entity.getPrecio().doubleValue()),
+                        entity.getExistencia(),
+                        Categoria.valueOf(entity.getCategoria())
+                ));
+            }
+            return resultado;
+        } catch (Exception e) {
+            throw new IllegalStateException("Error al listar productos con Hibernate: " + e.getMessage(), e);
+        }
     }
 }

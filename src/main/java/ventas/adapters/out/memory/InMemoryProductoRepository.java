@@ -1,7 +1,9 @@
 package ventas.adapters.out.memory;
 import ventas.domain.Producto;
 import ventas.ports.out.ProductoRepository;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,5 +18,10 @@ public class InMemoryProductoRepository implements ProductoRepository {
     @Override
     public Optional<Producto> buscarPorCodigo(long codigo) {
         return Optional.ofNullable(productos.get(codigo));
+    }
+
+    @Override
+    public List<Producto> listarTodos() {
+        return new ArrayList<>(productos.values());
     }
 }

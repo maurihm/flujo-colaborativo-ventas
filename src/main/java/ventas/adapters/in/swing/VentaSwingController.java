@@ -31,15 +31,17 @@ public class VentaSwingController {
             JOptionPane.showMessageDialog(parent, ex.getMessage(), "Validación Fallida", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+        ComandoRegistrarProducto cmd = new ComandoRegistrarProducto(
+                form.getCodigo(), form.getNombre(), new Dinero(form.getPrecio()),
+                form.getStock(), form.getCategoria()
+        );
+
         form.getBtnRegistrar().setEnabled(false);
         SwingWorker<Producto, Void> worker = new SwingWorker<>() {
             @Override
             protected Producto doInBackground() throws Exception {
                 Thread.sleep(300); // simulación leve de latencia fuera del EDT
-                ComandoRegistrarProducto cmd = new ComandoRegistrarProducto(
-                        form.getCodigo(), form.getNombre(), new Dinero(form.getPrecio()),
-                        form.getStock(), form.getCategoria()
-                );
                 return registrarService.registrar(cmd);
             }
 
@@ -68,18 +70,20 @@ public class VentaSwingController {
             JOptionPane.showMessageDialog(parent, "El carrito está vacío.", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+        Cliente clienteGeneral = new Cliente(1L, "Público", "General", "0000000000");
+        List<Producto> prods = new ArrayList<>();
+        List<Integer> cants = new ArrayList<>();
+        for (ItemCarrito it : items) {
+            prods.add(it.getProducto());
+            cants.add(it.getCantidad());
+        }
+
         carrito.getBtnConfirmarVenta().setEnabled(false);
         SwingWorker<Venta, Void> worker = new SwingWorker<>() {
             @Override
             protected Venta doInBackground() throws Exception {
                 Thread.sleep(400); // trabajo en segundo plano fuera del EDT
-                Cliente clienteGeneral = new Cliente(1L, "Público", "General", "0000000000");
-                List<Producto> prods = new ArrayList<>();
-                List<Integer> cants = new ArrayList<>();
-                for (ItemCarrito it : items) {
-                    prods.add(it.getProducto());
-                    cants.add(it.getCantidad());
-                }
                 return ventaFacade.procesarVentaCompleta(clienteGeneral, prods, cants);
             }
 

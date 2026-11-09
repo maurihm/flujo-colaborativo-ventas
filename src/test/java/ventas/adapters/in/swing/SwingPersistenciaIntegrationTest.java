@@ -2,8 +2,9 @@ package ventas.adapters.in.swing;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ventas.adapters.out.hibernate.HibernateUtil;
+import ventas.adapters.out.hibernate.ProductoHibernateRepository;
 import ventas.adapters.out.jdbc.ConexionBD;
-import ventas.adapters.out.jdbc.ProductoJdbcRepository;
 import ventas.application.ComandoRegistrarProducto;
 import ventas.application.RegistrarProductoService;
 import ventas.domain.Categoria;
@@ -13,6 +14,7 @@ import ventas.domain.Producto;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class SwingPersistenciaIntegrationTest {
 
-    private ProductoJdbcRepository productoRepo;
+    private ProductoHibernateRepository productoRepo;
     private RegistrarProductoService registrarService;
     private ProductoTableModel tableModel;
     private boolean dbDisponible = false;
@@ -41,14 +43,14 @@ class SwingPersistenciaIntegrationTest {
             dbDisponible = false;
         }
 
-        productoRepo = new ProductoJdbcRepository();
+        productoRepo = new ProductoHibernateRepository();
         registrarService = new RegistrarProductoService(productoRepo);
         tableModel = new ProductoTableModel();
     }
 
     @Test
-    void testRegistroDesdeServicioPersisteEnPostgresYReflejaEnTableModel() {
-        assumeTrue(dbDisponible, "PostgreSQL no disponible para prueba de integración");
+    void testRegistroDesdeServicioPersisteEnPostgresConHibernateYReflejaEnTableModel() {
+        assumeTrue(dbDisponible && HibernateUtil.getSessionFactory() != null, "PostgreSQL o Hibernate no disponible");
 
         ComandoRegistrarProducto cmd = new ComandoRegistrarProducto(
                 701L, "Monitor Gamer 144Hz", new Dinero(4500.00), 10, Categoria.ELECTRONICA
@@ -56,13 +58,14 @@ class SwingPersistenciaIntegrationTest {
         Producto registrado = registrarService.registrar(cmd);
         tableModel.agregarProducto(registrado);
 
-        // Verificar que el producto quedó persistido en la base de datos PostgreSQL
         Optional<Producto> enBD = productoRepo.buscarPorCodigo(701L);
-        assertTrue(enBD.isPresent(), "El producto debe existir en PostgreSQL tras registrarse");
+        assertTrue(enBD.isPresent(), "El producto debe existir en PostgreSQL tras registrarse con Hibernate");
         assertEquals("Monitor Gamer 144Hz", enBD.get().getNombre());
         assertEquals(4500.00, enBD.get().getPrecio().getMonto());
 
-        // Verificar que el modelo de tabla de Swing contiene el producto registrado
+        List<Producto> catalogo = productoRepo.listarTodos();
+        assertTrue(catalogo.stream().anyMatch(p -> p.getCodigo() == 701L), "listarTodos debe contener el producto");
+
         assertEquals(1, tableModel.getRowCount());
         assertEquals(701L, tableModel.getValueAt(0, 0));
         assertEquals("Monitor Gamer 144Hz", tableModel.getValueAt(0, 1));
