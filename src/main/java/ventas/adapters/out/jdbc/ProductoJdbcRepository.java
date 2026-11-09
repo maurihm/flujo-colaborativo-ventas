@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ProductoJdbcRepository implements ProductoRepository {
@@ -63,5 +65,30 @@ public class ProductoJdbcRepository implements ProductoRepository {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public List<Producto> listarTodos() {
+        String sql = "SELECT codigo, nombre, precio, existencia, categoria FROM producto ORDER BY codigo ASC";
+        List<Producto> lista = new ArrayList<>();
+
+        try (Connection cn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                long cod = rs.getLong("codigo");
+                String nom = rs.getString("nombre");
+                double pre = rs.getDouble("precio");
+                int exi = rs.getInt("existencia");
+                Categoria cat = Categoria.valueOf(rs.getString("categoria"));
+
+                lista.add(new Producto(cod, nom, new Dinero(pre), exi, cat));
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Error al listar productos en BD: " + e.getMessage(), e);
+        }
+
+        return lista;
     }
 }
