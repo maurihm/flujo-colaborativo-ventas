@@ -1,0 +1,10 @@
+{
+  "clienteNombre": "Juan Perez",
+  "clienteEmail": "juan.perez@uv.mx",
+  "items": [
+    {
+      "codigoProducto": 101,
+      "cantidad": 2
+    }
+  ]
+}

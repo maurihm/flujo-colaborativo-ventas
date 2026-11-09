@@ -1,0 +1,11 @@
+{
+  "type": "https://api.ventas.tcsw/errores/validacion",
+  "title": "Entrada invalida",
+  "status": 400,
+  "detail": "Uno o mas campos no cumplen con el formato requerido",
+  "instance": "/productos",
+  "timestamp": "2026-11-08T20:00:00Z",
+  "invalidParams": [
+    "El precio debe ser mayor a cero"
+  ]
+}
