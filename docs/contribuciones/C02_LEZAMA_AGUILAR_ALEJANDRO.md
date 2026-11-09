@@ -18,6 +18,6 @@ En la evaluación de R03 se detectó que la interfaz gráfica aún arrancaba con
 ### Evidencias en GitHub
 - **Rama de Corrección:** `fix/c02-swing-hibernate-edt-integracion`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/54
-- **Pull Request (PR):** [PENDIENTE_DE_CREAR]
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/55
 - **Revisor Asignado:** Valeria Hernández De la Cruz
 - **Registro Inicial C02:** Issue #44 | PR #45
