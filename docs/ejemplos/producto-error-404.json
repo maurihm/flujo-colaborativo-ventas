@@ -1,0 +1,8 @@
+{
+  "type": "https://api.ventas.tcsw/errores/recurso-inexistente",
+  "title": "Recurso no encontrado",
+  "status": 404,
+  "detail": "No existe el producto con codigo: 999",
+  "instance": "/productos/999",
+  "timestamp": "2026-11-08T20:00:00Z"
+}   

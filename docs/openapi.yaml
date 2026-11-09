@@ -1,0 +1,219 @@
+openapi: 3.1.0
+info:
+  title: API de Ventas Prototipo TCSW
+  description: Contrato de interfaz REST para consulta y alta de productos y procesamiento de ventas.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desarrollo local
+paths:
+  /productos:
+    get:
+      summary: Listar catalogo de productos
+      operationId: listarProductos
+      responses:
+        "200":
+          description: Catalogo recuperado exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductoResponse"
+    post:
+      summary: Registrar nuevo producto
+      operationId: registrarProducto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductoRequest"
+      responses:
+        "201":
+          description: Producto creado exitosamente
+          headers:
+            Location:
+              schema:
+                type: string
+                example: /productos/101
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductoResponse"
+        "400":
+          description: Datos de entrada invalidos
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+  /productos/{codigo}:
+    get:
+      summary: Consultar producto por codigo
+      operationId: obtenerProductoPorCodigo
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 101
+      responses:
+        "200":
+          description: Producto localizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductoResponse"
+        "404":
+          description: Producto no encontrado
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+  /ventas:
+    post:
+      summary: Crear y procesar una venta
+      operationId: crearVenta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CrearVentaRequest"
+      responses:
+        "201":
+          description: Venta creada y procesada con exito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VentaResponse"
+        "400":
+          description: Solicitud de venta invalida o carrito vacio
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+components:
+  schemas:
+    ProductoRequest:
+      type: object
+      required:
+        - codigo
+        - nombre
+        - precio
+        - existencia
+      properties:
+        codigo:
+          type: integer
+          format: int64
+          example: 101
+        nombre:
+          type: string
+          example: Teclado Mecanico
+        precio:
+          type: number
+          format: double
+          example: 850.00
+        existencia:
+          type: integer
+          example: 15
+    ProductoResponse:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+          example: 101
+        nombre:
+          type: string
+          example: Teclado Mecanico
+        precio:
+          type: number
+          format: double
+          example: 850.00
+        existencia:
+          type: integer
+          example: 15
+    ItemVenta:
+      type: object
+      required:
+        - codigoProducto
+        - cantidad
+      properties:
+        codigoProducto:
+          type: integer
+          format: int64
+          example: 101
+        cantidad:
+          type: integer
+          minimum: 1
+          example: 2
+    CrearVentaRequest:
+      type: object
+      required:
+        - clienteNombre
+        - clienteEmail
+        - items
+      properties:
+        clienteNombre:
+          type: string
+          example: Juan Perez
+        clienteEmail:
+          type: string
+          example: juan.perez@uv.mx
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/ItemVenta"
+    VentaResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: VNT-1731114000
+        cliente:
+          type: string
+          example: Juan Perez
+        total:
+          type: number
+          format: double
+          example: 1700.00
+        estado:
+          type: string
+          example: CONFIRMADA
+        detallesCount:
+          type: integer
+          example: 1
+    ProblemDetail:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          example: https://api.ventas.tcsw/errores/validacion
+        title:
+          type: string
+          example: Entrada invalida
+        status:
+          type: integer
+          example: 400
+        detail:
+          type: string
+          example: Uno o mas campos no cumplen con el formato requerido
+        instance:
+          type: string
+          example: /productos
+        timestamp:
+          type: string
+          format: date-time
+        invalidParams:
+          type: array
+          items:
+            type: string
