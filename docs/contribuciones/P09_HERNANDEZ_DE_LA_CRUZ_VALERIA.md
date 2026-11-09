@@ -16,5 +16,5 @@ La arquitectura de microservicios y APIs REST requiere un contrato oficial desac
 ### Evidencias en GitHub
 - **Rama:** `feature/p09-contrato-openapi-cors`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/58
-- **Pull Request (PR):** [PEGAR LINK DE TU PR]
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/59
 - **Revisor Asignado:** Alejandro Lezama Aguilar
