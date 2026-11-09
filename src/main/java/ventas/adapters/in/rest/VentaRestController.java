@@ -54,8 +54,12 @@ public class VentaRestController {
                 ? "CONFIRMADA"
                 : venta.getEstado().name();
 
+        String idVenta = venta.getId() != null
+                ? venta.getId()
+                : "VNT-" + (System.currentTimeMillis() / 1000);
+
         VentaResponseDto response = new VentaResponseDto(
-                venta.getId(),
+                idVenta,
                 venta.getCliente().getNombre(),
                 BigDecimal.valueOf(venta.calcularSubtotal().getMonto()),
                 estado,
