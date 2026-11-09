@@ -14,6 +14,7 @@ En la evaluación de R03 se detectó que la interfaz gráfica aún arrancaba con
 - **`SwingApplication.java`:** Arranque inicializado con `ProductoHibernateRepository` y `VentaHibernateRepository`. Eliminación de `cargarProductosDesdeBD()` y de imports `java.sql.*`. Precarga de datos y construcción del modelo de tabla ejecutadas dentro de `SwingUtilities.invokeLater()`.
 - **`VentaSwingController.java`:** Extracción de datos del formulario y armado del comando de registro dentro del hilo EDT antes de invocar `doInBackground()`.
 - **`SwingPersistenciaIntegrationTest.java`:** Actualización de la prueba de integración para validar el ciclo de persistencia y catálogo en PostgreSQL mediante Hibernate.
+- **`VentaSwingControllerTest.java`:** Suite de pruebas unitarias para `VentaSwingController` (validación de formulario, carrito vacío, persistencia asíncrona y confirmación de venta).
 
 ### Evidencias en GitHub
 - **Rama de Corrección:** `fix/c02-swing-hibernate-edt-integracion`
