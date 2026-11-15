@@ -14,8 +14,7 @@ describe('ProductoFormComponent', () => {
     const spy = jasmine.createSpyObj('ProductosService', ['crear']);
 
     await TestBed.configureTestingModule({
-      declarations: [ProductoFormComponent],
-      imports: [ReactiveFormsModule, RouterTestingModule],
+      imports: [ProductoFormComponent, ReactiveFormsModule, RouterTestingModule],
       providers: [{ provide: ProductosService, useValue: spy }]
     }).compileComponents();
 

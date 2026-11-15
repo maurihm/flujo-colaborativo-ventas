@@ -2,7 +2,7 @@
 **Estudiante:** Axel Uriel García Loyo
 **Actividad:** P10. Cliente Angular
 **Rama:** `feature/p10-pruebas-unitarias-sonar`
-**Pull Request:** PR #71
+**Pull Request:** PR #70
 
 ## 1. Responsabilidades Asignadas
 - Implementación de pruebas unitarias con `TestBed` y `HttpClientTestingModule` para `ProductosService`.
