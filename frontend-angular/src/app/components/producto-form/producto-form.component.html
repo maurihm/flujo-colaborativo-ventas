@@ -1,0 +1,49 @@
+<section class="form-container" aria-labelledby="titulo-alta">
+  <h1 id="titulo-alta">Registrar Nuevo Producto</h1>
+
+  <div *ngIf="mensajeExito" class="alerta exito" role="status" aria-live="polite">
+    {{ mensajeExito }}
+  </div>
+
+  <div *ngIf="errorServidor" class="alerta error" role="alert" aria-live="assertive">
+    <strong>{{ errorServidor.title }}:</strong> {{ errorServidor.detail }}
+  </div>
+
+  <form [formGroup]="productoForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-group">
+      <label for="codigo">Código del Producto: <span class="required" aria-hidden="true">*</span></label>
+      <input id="codigo" type="number" formControlName="codigo" [class.input-error]="esInvalido('codigo')" aria-describedby="err-codigo" />
+      <span id="err-codigo" class="msg-error" *ngIf="esInvalido('codigo')">
+        El código es requerido y debe ser un número entero positivo.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre del Producto: <span class="required" aria-hidden="true">*</span></label>
+      <input id="nombre" type="text" formControlName="nombre" [class.input-error]="esInvalido('nombre')" aria-describedby="err-nombre" />
+      <span id="err-nombre" class="msg-error" *ngIf="esInvalido('nombre')">
+        El nombre es requerido (mínimo 2 caracteres).
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio Unitario ($): <span class="required" aria-hidden="true">*</span></label>
+      <input id="precio" type="number" step="0.01" formControlName="precio" [class.input-error]="esInvalido('precio')" aria-describedby="err-precio" />
+      <span id="err-precio" class="msg-error" *ngIf="esInvalido('precio')">
+        El precio debe ser mayor a 0.00.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="existencia">Existencia Inicial:</label>
+      <input id="existencia" type="number" formControlName="existencia" [class.input-error]="esInvalido('existencia')" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="guardando">
+        {{ guardando ? 'Guardando...' : 'Registrar Producto' }}
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/productos">Cancelar</button>
+    </div>
+  </form>
+</section>
