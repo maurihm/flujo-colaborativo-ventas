@@ -1,0 +1,31 @@
+<section class="page-container" aria-labelledby="titulo-catalogo">
+  <header class="page-header">
+    <h1 id="titulo-catalogo">Catálogo de Productos</h1>
+    <button type="button" class="btn btn-success" (click)="irANuevo()">+ Nuevo Producto</button>
+  </header>
+
+  <!-- Estado 1: Loading -->
+  <div *ngIf="estado === 'loading'" class="estado-caja loading" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Cargando catálogo de productos desde la API...</p>
+  </div>
+
+  <!-- Estado 2: Empty -->
+  <div *ngIf="estado === 'empty'" class="estado-caja empty" role="region" aria-label="Catálogo vacío">
+    <h3>No hay productos registrados</h3>
+    <p>El inventario se encuentra actualmente vacío. Utiliza el botón de alta para registrar el primer producto.</p>
+    <button type="button" class="btn btn-primary" (click)="irANuevo()">Registrar Ahora</button>
+  </div>
+
+  <!-- Estado 3: Error -->
+  <div *ngIf="estado === 'error'" class="estado-caja error" role="alert" aria-live="assertive">
+    <h3>Error al cargar productos</h3>
+    <p><strong>{{ error?.title }}:</strong> {{ error?.detail }}</p>
+    <button type="button" class="btn btn-secondary" (click)="cargarProductos()">Reintentar Conexión</button>
+  </div>
+
+  <!-- Estado 4: Success -->
+  <div *ngIf="estado === 'success'">
+    <app-producto-list [productos]="productos" (seleccionar)="verDetalle($event)"></app-producto-list>
+  </div>
+</section>

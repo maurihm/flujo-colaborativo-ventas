@@ -1,0 +1,33 @@
+<div class="table-responsive" *ngIf="productos.length > 0">
+  <table class="productos-table" aria-label="Catálogo de productos disponibles">
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Existencia</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productos">
+        <td><strong>{{ p.codigo }}</strong></td>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.precio | currency: 'USD' : 'symbol' : '1.2-2' }}</td>
+        <td>
+          <span [class.alerta-agotado]="p.existencia === 0">
+            {{ p.existencia }} unidades
+          </span>
+        </td>
+        <td class="acciones">
+          <button type="button" class="btn btn-info" (click)="onSeleccionar(p)" [attr.aria-label]="'Ver detalle de ' + p.nombre">
+            Detalle
+          </button>
+          <button type="button" class="btn btn-primary" (click)="onAgregar(p)" [disabled]="p.existencia === 0" [attr.aria-label]="'Agregar ' + p.nombre + ' al carrito'">
+            + Carrito
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
