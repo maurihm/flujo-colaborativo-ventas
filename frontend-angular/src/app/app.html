@@ -1,0 +1,13 @@
+<header class="app-navbar" role="banner">
+  <div class="navbar-brand">
+    <strong>Sistema de Ventas TCSW</strong>
+  </div>
+  <nav class="navbar-links" aria-label="Navegación principal">
+    <a routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Catálogo</a>
+    <a routerLink="/productos/nuevo" routerLinkActive="active">Nuevo Producto</a>
+    <a routerLink="/ventas" routerLinkActive="active">Ventas</a>
+  </nav>
+</header>
+<main class="main-content" role="main">
+  <router-outlet></router-outlet>
+</main>
