@@ -1,6 +1,5 @@
 package ventas.adapters.in.rest;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +26,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/productos")
 public class ProductoRestController {
-
     private final RegistrarProductoUseCase registrarProductoUseCase;
     private final ProductoRepository productoRepository;
 
@@ -61,7 +59,6 @@ public class ProductoRestController {
                 dto.getExistencia(),
                 Categoria.GENERAL
         );
-
         Producto creado = registrarProductoUseCase.registrar(comando);
         ProductoResponseDto response = aDto(creado);
         URI ubicacion = URI.create("/productos/" + response.getCodigo());
