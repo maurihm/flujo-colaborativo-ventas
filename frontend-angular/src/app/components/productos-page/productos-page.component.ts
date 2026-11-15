@@ -53,4 +53,8 @@ export class ProductosPageComponent implements OnInit {
   irANuevo(): void {
     this.router.navigate(['/productos/nuevo']);
   }
+
+  irAVentas(): void {
+    this.router.navigate(['/ventas']);
+  }
 }

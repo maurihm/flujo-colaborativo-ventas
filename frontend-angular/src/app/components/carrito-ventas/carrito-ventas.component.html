@@ -1,0 +1,127 @@
+<section class="ventas-container" aria-labelledby="titulo-ventas">
+  <header class="ventas-header">
+    <h1 id="titulo-ventas">Módulo de Ventas y Carrito</h1>
+    <a routerLink="/productos" class="btn btn-secondary">Volver al Catálogo</a>
+  </header>
+
+  <div *ngIf="ventaExitosa" class="alerta exito" role="status" aria-live="polite">
+    <h3>¡Venta Registrada Exitosamente!</h3>
+    <p><strong>Folio de Venta:</strong> {{ ventaExitosa.id }}</p>
+    <p><strong>Cliente:</strong> {{ ventaExitosa.cliente }}</p>
+    <p><strong>Total:</strong> {{ ventaExitosa.total | currency:'USD':'symbol':'1.2-2' }}</p>
+    <p><strong>Partidas:</strong> {{ ventaExitosa.detallesCount }} productos</p>
+    <p><strong>Estado:</strong> {{ ventaExitosa.estado }}</p>
+  </div>
+
+  <div *ngIf="errorVenta" class="alerta error" role="alert" aria-live="assertive">
+    <h3>Error al Procesar Venta</h3>
+    <p><strong>{{ errorVenta.title }}:</strong> {{ errorVenta.detail }}</p>
+  </div>
+
+  <div *ngIf="mensajeValidacion" class="alerta advertencia" role="alert">
+    {{ mensajeValidacion }}
+  </div>
+
+  <div class="ventas-grid">
+    <div class="card selector-card">
+      <h2>1. Seleccionar Producto</h2>
+      <div *ngIf="cargandoProductos" role="status" aria-live="polite">
+        <p>Cargando catálogo...</p>
+      </div>
+
+      <div *ngIf="!cargandoProductos && productos.length === 0">
+        <p>No hay productos disponibles en el catálogo.</p>
+        <a routerLink="/productos/nuevo" class="btn btn-primary">+ Dar de alta producto</a>
+      </div>
+
+      <div *ngIf="!cargandoProductos && productos.length > 0" class="form-agregar">
+        <div class="form-group">
+          <label for="producto-select">Producto:</label>
+          <select id="producto-select" [(ngModel)]="productoSeleccionadoCodigo" class="form-control">
+            <option *ngFor="let p of productos" [value]="p.codigo" [disabled]="p.existencia === 0">
+              {{ p.nombre }} - {{ p.precio | currency:'USD':'symbol':'1.2-2' }} (Stock: {{ p.existencia }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cantidad-input">Cantidad:</label>
+          <input id="cantidad-input" type="number" min="1" [(ngModel)]="cantidadSeleccionada" class="form-control" />
+        </div>
+
+        <button type="button" class="btn btn-primary btn-block" (click)="agregarItem()">
+          + Agregar al Carrito
+        </button>
+      </div>
+    </div>
+
+    <div class="card carrito-card">
+      <h2>2. Partidas de la Venta</h2>
+      <div *ngIf="carrito.length === 0" class="carrito-vacio">
+        <p>El carrito no tiene partidas agregadas aún.</p>
+      </div>
+
+      <div *ngIf="carrito.length > 0" class="table-responsive">
+        <table class="carrito-table" aria-label="Partidas de la venta">
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">Quitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of carrito">
+              <td><strong>{{ item.codigoProducto }}</strong></td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.precioUnitario | currency:'USD':'symbol':'1.2-2' }}</td>
+              <td>{{ item.cantidad }}</td>
+              <td>{{ item.subtotal | currency:'USD':'symbol':'1.2-2' }}</td>
+              <td>
+                <button type="button" class="btn-quitar" (click)="eliminarItem(item.codigoProducto)" [attr.aria-label]="'Quitar ' + item.nombre">
+                  &times;
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-right"><strong>Total a Cobrar:</strong></td>
+              <td colspan="2" class="total-monto">{{ totalVenta | currency:'USD':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="carrito-acciones">
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="vaciarCarrito()">
+            Vaciar Carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cliente-card" *ngIf="carrito.length > 0">
+    <h2>3. Datos del Cliente y Cierre</h2>
+    <div class="cliente-form-grid">
+      <div class="form-group">
+        <label for="cliente-nombre">Nombre del Cliente: <span class="required" aria-hidden="true">*</span></label>
+        <input id="cliente-nombre" type="text" [(ngModel)]="clienteNombre" placeholder="Ej. Juan Pérez" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="cliente-email">Correo Electrónico: <span class="required" aria-hidden="true">*</span></label>
+        <input id="cliente-email" type="email" [(ngModel)]="clienteEmail" placeholder="cliente@correo.com" class="form-control" />
+      </div>
+    </div>
+
+    <div class="cierre-acciones">
+      <button type="button" class="btn btn-success btn-lg" [disabled]="procesandoVenta" (click)="confirmarVenta()">
+        {{ procesandoVenta ? 'Procesando Venta...' : 'Confirmar y Registrar Venta (' + (totalVenta | currency:'USD':'symbol':'1.2-2') + ')' }}
+      </button>
+    </div>
+  </div>
+</section>
