@@ -3,8 +3,8 @@ package ventas;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ventas.adapters.out.memory.InMemoryProductoRepository;
-import ventas.adapters.out.memory.InMemoryVentaRepository;
+import ventas.adapters.out.hibernate.ProductoHibernateRepository;
+import ventas.adapters.out.hibernate.VentaHibernateRepository;
 import ventas.application.ConfirmarVentaService;
 import ventas.application.RegistrarProductoService;
 import ventas.application.VentaFacade;
@@ -21,12 +21,12 @@ public class RestApplication {
 
     @Bean
     public ProductoRepository productoRepository() {
-        return new InMemoryProductoRepository();
+        return new ProductoHibernateRepository();
     }
 
     @Bean
     public VentaRepository ventaRepository() {
-        return new InMemoryVentaRepository();
+        return new VentaHibernateRepository();
     }
 
     @Bean
