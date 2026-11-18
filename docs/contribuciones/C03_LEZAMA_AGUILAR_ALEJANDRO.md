@@ -20,6 +20,6 @@ En la fase previa de desarrollo (P09/P10), la API REST operaba con adaptadores e
 
 ### Trazabilidad en GitHub
 - **Rama:** `feature/c03-api-contrato-catalogo-endpoints`
-- **Issue:** #[Número_de_Issue_Alejandro]
-- **Pull Request (PR):** #[Número_de_PR_Alejandro]
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/72 (#72)
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/73 (#73)
 - **Revisora Asignada:** Valeria Hernández De la Cruz
