@@ -1,6 +1,5 @@
 # Evidencia de Contribución C03: Integración Web
 **Integrante:** Alejandro Lezama Aguilar  
-**Criterio R04 Asignado:** 1. API (1.5 Puntos)  
 **Módulos Integrados:** M12 (API REST) y M13 (Cliente Web)
 
 ## Resumen de la Contribución
