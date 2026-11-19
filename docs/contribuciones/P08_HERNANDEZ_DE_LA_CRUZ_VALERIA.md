@@ -14,7 +14,6 @@ Permitir que el caso de uso de ventas persista los encabezados de venta y consul
 - VentaJdbcRepositoryTest: Pruebas de integración validando persistencia y consulta exitosa y manejo de ausencia.
 
 ### Evidencias en GitHub
-- **Rama:** `feature/jdbc-venta-repositorio`
-- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/38
-- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/39
-- **Revisor Asignado:** Alejandro Lezama Aguilar
+- Rama: `feature/jdbc-venta-repositorio`
+- Issue: https://github.com/maurihm/flujo-colaborativo-ventas/issues/38
+- Pull Request (PR): [PEGAR LINK DEL PR AQUÍ]
