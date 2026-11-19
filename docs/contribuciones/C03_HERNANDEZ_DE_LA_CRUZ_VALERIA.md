@@ -24,5 +24,5 @@ Un error frecuente en el desarrollo frontend es omitir los estados intermedios d
 ### Trazabilidad en GitHub
 - **Rama:** `feature/c03-angular-navegacion-estados-ui`
 - **Issue:** #https://github.com/maurihm/flujo-colaborativo-ventas/issues/74
-- **Pull Request (PR):** #[Número_de_PR_Valeria]
+- **Pull Request (PR):** #https://github.com/maurihm/flujo-colaborativo-ventas/pull/75
 - **Revisor Asignado:** Alejandro Lezama Aguilar
