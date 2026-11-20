@@ -23,7 +23,7 @@ Asegurar que la integración de los módulos M12 y M13 mantuviera los estándare
 
 ### Trazabilidad en GitHub
 - **Rama:** `feature/c03-suite-pruebas-calidad-sonar-entrega`
-- **Issue:** #79
-- **Pull Request (PR):** #80
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/76 (#76)
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/79 (#79)
 - **Revisor Asignado:** Mauricio Hernández Martínez (@maurihm)
 - **Etiqueta Oficial:** `v0.3-web`
