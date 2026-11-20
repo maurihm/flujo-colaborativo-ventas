@@ -1,5 +1,3 @@
-mkdir -p docs/contribuciones
-cat << 'EOF' > docs/contribuciones/C03_HERNANDEZ_DE_LA_CRUZ_VALERIA.md
 # Evidencia de Contribución C03: Integración Web
 **Integrante:** Valeria Hernández De la Cruz  
 **Criterio R04 Asignado:** 2. Angular (1.5 Puntos)  
@@ -23,6 +21,6 @@ Un error frecuente en el desarrollo frontend es omitir los estados intermedios d
 
 ### Trazabilidad en GitHub
 - **Rama:** `feature/c03-angular-navegacion-estados-ui`
-- **Issue:** #https://github.com/maurihm/flujo-colaborativo-ventas/issues/74
-- **Pull Request (PR):** #https://github.com/maurihm/flujo-colaborativo-ventas/pull/75
+- **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/74 (#74)
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/75 (#75)
 - **Revisor Asignado:** Alejandro Lezama Aguilar
