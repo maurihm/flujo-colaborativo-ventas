@@ -30,5 +30,5 @@ En aplicaciones web acopladas es frecuente que los controladores HTTP reimplemen
 ### Trazabilidad en GitHub
 - **Rama:** `feature/c03-reutilizacion-nucleo-rfc9457-validacion`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/77 (#77)
-- **Pull Request (PR):** Pendiente de asignación al abrir PR
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/78 (#78)
 - **Revisor Asignado:** Axel Uriel García Loyo (@kaos-gl)
