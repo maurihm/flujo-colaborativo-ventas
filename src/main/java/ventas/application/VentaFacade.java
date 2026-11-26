@@ -30,6 +30,7 @@ public class VentaFacade {
         
         // 3. Confirmar (Activa Observer)
         confirmarService.confirmar(v.getId());
+        v.setEstado(ventas.domain.EstadoVenta.PAGADA);
         
         return v;
     }

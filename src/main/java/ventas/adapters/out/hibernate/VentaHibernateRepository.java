@@ -43,11 +43,21 @@ public class VentaHibernateRepository implements VentaRepository {
             try {
                 tx = session.beginTransaction();
 
-                VentaEntity ventaEntity = mapearEncabezado(venta);
-                session.save(ventaEntity);
+                if (venta.getId() == null || venta.getId().isBlank()) {
+                    venta.asignarId("VNT-" + System.nanoTime());
+                }
 
-                for (DetalleVenta d : venta.getDetalles()) {
-                    persistirDetalleYDescontarStock(session, ventaEntity, d);
+                VentaEntity existente = session.get(VentaEntity.class, venta.getId());
+                if (existente != null) {
+                    existente.setEstado(venta.getEstado() != null ? venta.getEstado().name() : EstadoVenta.NUEVA.name());
+                    session.update(existente);
+                } else {
+                    VentaEntity ventaEntity = mapearEncabezado(venta);
+                    session.save(ventaEntity);
+
+                    for (DetalleVenta d : venta.getDetalles()) {
+                        persistirDetalleYDescontarStock(session, ventaEntity, d);
+                    }
                 }
 
                 tx.commit();
@@ -70,7 +80,8 @@ public class VentaHibernateRepository implements VentaRepository {
             ventaEntity.setClienteCodigo(cl.getCodigo());
             ventaEntity.setClienteNombre(cl.getNombre());
             ventaEntity.setClienteApellido(cl.getApellido());
-            ventaEntity.setClienteTelefono(cl.getTelefono() != null ? cl.getTelefono() : "");
+            String tel = cl.getTelefono() != null ? cl.getTelefono() : "";
+            ventaEntity.setClienteTelefono(tel.length() > 20 ? tel.substring(0, 20) : tel);
         } else {
             ventaEntity.setClienteCodigo(0L);
             ventaEntity.setClienteNombre("General");

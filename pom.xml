@@ -6,17 +6,18 @@
 
     <groupId>ventas</groupId>
     <artifactId>ventas-tcsw</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-rc</version>
     <packaging>jar</packaging>
 
     <name>ventas-tcsw</name>
-    <description>Prototipo de ventas - TCSW: incrementos P01 (Producto) y P02 (Venta, DetalleVenta)</description>
+    <description>Prototipo de ventas - TCSW: candidato de liberacion v1.0-rc</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
+        <sonar.projectVersion>1.0.0-rc</sonar.projectVersion>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
@@ -75,7 +76,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>ventas-tcsw</finalName>
+        <finalName>ventas-tcsw-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -118,6 +119,19 @@
                 <configuration>
                     <mainClass>ventas.RestApplication</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>4.0.0.4121</version>
             </plugin>
         </plugins>
     </build>

@@ -66,6 +66,21 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ProblemDetailDto> handleIllegalState(
+            IllegalStateException ex, HttpServletRequest request) {
+
+        ProblemDetailDto problem = new ProblemDetailDto(
+                "https://api.ventas.tcsw/errores/conflicto-estado",
+                "Conflicto con el estado actual del recurso",
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(problem);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetailDto> handleGeneralError(
             Exception ex, HttpServletRequest request) {

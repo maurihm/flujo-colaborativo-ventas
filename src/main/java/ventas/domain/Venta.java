@@ -75,11 +75,18 @@ public class Venta {
     }
 
     public Venta(String id) {
-    this.id = id;
-    this.estado = EstadoVenta.NUEVA;
-}
+        this.id = id;
+        this.estado = EstadoVenta.NUEVA;
+    }
 
     public String getId() {
-    return id;
+        return id;
+    }
+
+    public void asignarId(String nuevoId) {
+        if (nuevoId == null || nuevoId.isBlank()) {
+            throw new IllegalArgumentException("El identificador de la venta no puede ser vacio");
         }
+        this.id = nuevoId;
+    }
 }
