@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: API de Ventas Prototipo TCSW
   description: Contrato de interfaz REST para consulta y alta de productos y procesamiento de ventas.
-  version: 1.0.0
+  version: 1.0.0-rc
 servers:
   - url: http://localhost:8080
     description: Servidor de desarrollo local
@@ -91,6 +91,18 @@ paths:
                 $ref: "#/components/schemas/VentaResponse"
         "400":
           description: Solicitud de venta invalida o carrito vacio
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "404":
+          description: Producto incluido en la venta no encontrado
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "409":
+          description: Existencia insuficiente o conflicto con el estado del recurso
           content:
             application/problem+json:
               schema:

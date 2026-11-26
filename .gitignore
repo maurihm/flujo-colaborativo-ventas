@@ -6,3 +6,6 @@ node_modules/
 .angular/
 dist/
 .DS_Store
+.env
+.scannerwork/
+token.json
