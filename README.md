@@ -1,123 +1,49 @@
-# ventas-tcsw
+# Sistema de Ventas TCSW (`ventas-tcsw`) — Candidato de Liberación `v1.0-rc`
 
-Sistema de punto de venta desarrollado para la EE **Tecnologías para la Construcción de Software (TCSW-19234)** — Universidad Veracruzana.
+Sistema punto de venta desarrollado bajo **Arquitectura Hexagonal** con núcleo de dominio en Java, patrones GoF, persistencia relacional en PostgreSQL 16 con Hibernate, API REST en Spring Boot, cliente web en Angular 20 servido mediante Nginx, contenedorización multi-etapa con Docker Compose e Integración Continua en GitHub Actions.
 
-Esta versión consolida la **Práctica P08 (M10 + M11): Persistencia Relacional JDBC con PostgreSQL 16 y Transacciones Atómicas**, preservando la **Arquitectura Hexagonal**, los patrones de diseño GoF (Factory, Strategy, Observer, Facade) y el cliente gráfico con Java Swing + `SwingWorker`.
+## Versiones Congeladas (`1.0.0-rc`)
 
----
+| Componente | Tecnología / Versión |
+| :--- | :--- |
+| Backend / Runtime | Java 11 (Eclipse Temurin / OpenJDK), Spring Boot `2.7.18` |
+| Persistencia | Hibernate `5.6.15.Final`, PostgreSQL `16-alpine` |
+| Construcción y Pruebas | Maven `3.9+`, JUnit 5, ArchUnit, JaCoCo `0.8.12` |
+| Frontend Web | Angular `20.3`, Node.js `22`, Nginx `1.27-alpine` |
+| Contenedores y CI | Docker / Docker Compose, GitHub Actions |
 
-## Requisitos y versiones
-
-- **Java:** JDK 11
-- **Maven:** 3.9.x
-- **Docker y Docker Compose:** Contenedor `postgres:16-alpine`
-- **Git:** 2.x
-
-Verifica tu entorno antes de continuar:
-
-```bash
-java -version
-javac -version
-mvn -version
-docker --version
-docker compose version
-```
-
----
-
-## Guía breve de reproducción (P08)
-
-### 1. Clonar el repositorio
+## Opción A: Despliegue Rápido desde Entorno Limpio (Docker Compose)
 
 ```bash
 git clone https://github.com/maurihm/flujo-colaborativo-ventas.git
 cd flujo-colaborativo-ventas
-git checkout main
+git checkout v1.0-rc
+docker compose up -d --build
+docker compose ps
+curl -i http://localhost:4200/api/productos
 ```
 
-### 2. Iniciar PostgreSQL 16 en Docker Compose
+- **Cliente Web Angular (Nginx):** `http://localhost:4200`
+- **API REST Spring Boot:** `http://localhost:8080` (accesible también vía proxy en `http://localhost:4200/api/`)
+- **Base de Datos PostgreSQL 16:** puerto `5432` (configurable vía `.env`, ver `.env.example`)
 
-El archivo `docker-compose.yml` levanta PostgreSQL 16 y ejecuta automáticamente el esquema DDL (`src/main/resources/schema.sql`):
+## Opción B: Ejecución Manual de Desarrollo y Suite de Pruebas (90 tests)
 
 ```bash
-docker compose up -d
+# 1. Backend: 81 pruebas (JUnit 5 + ArchUnit) + reporte JaCoCo + fat JAR ejecutable
+mvn clean package
+
+# 2. Frontend: 9 pruebas unitarias en ChromeHeadless + build de producción
+cd frontend-angular
+npm ci
+npm test -- --watch=false --browsers=ChromeHeadless
+npm run build -- --configuration production
 ```
 
-> **Nota:** Si el puerto local `5432` ya está ocupado en tu máquina, puedes usar otro puerto configurable mediante variables de entorno:
-> ```bash
-> DB_PORT=5433 docker compose up -d
-> export DB_URL="jdbc:postgresql://localhost:5433/ventas_tcsw"
-> ```
-
-### 3. Compilar y ejecutar todas las pruebas (`mvn clean test`)
-
-Ejecuta las **60 pruebas automatizadas** (dominio, aplicación, arquitectura con ArchUnit, vistas Swing e integración JDBC/transacciones con PostgreSQL):
-
-```bash
-mvn clean test
-```
-
-La salida debe finalizar con:
-
-```text
-Tests run: 60, Failures: 0, Errors: 0, Skipped: 0
-...
-BUILD SUCCESS
-```
-
-### 4. Ejecutar la interfaz gráfica Swing (opcional)
-
-```bash
-mvn compile exec:java -Dexec.mainClass="ventas.adapters.in.swing.SwingApplication"
-```
-
----
-
-## Estructura del proyecto (Arquitectura Hexagonal)
-
-```text
-flujo-colaborativo-ventas/
-├── pom.xml
-├── docker-compose.yml
-├── README.md
-├── docs/
-│   ├── P05-arquitectura.md
-│   ├── P06-patrones.md
-│   └── contribuciones/
-│       ├── P08_EQUIPO_01.md
-│       ├── P08_LEZAMA_AGUILAR_ALEJANDRO.md
-│       ├── P08_HERNANDEZ_DE_LA_CRUZ_VALERIA.md
-│       ├── P08_HERNANDEZ_MARTINEZ_MAURICIO.md
-│       └── P08_GARCIA_LOYO_AXEL_URIEL.md
-└── src/
-    ├── main/
-    │   ├── resources/
-    │   │   └── schema.sql
-    │   └── java/ventas/
-    │       ├── domain/                  # Núcleo puro (Producto, Venta, DetalleVenta, Cliente, Dinero)
-    │       ├── ports/
-    │       │   ├── in/                  # Casos de uso
-    │       │   └── out/                 # ProductoRepository, VentaRepository
-    │       ├── application/             # Servicios de aplicación y VentaFacade
-    │       └── adapters/
-    │           ├── in/swing/            # Adaptador primario MVC con Swing y SwingWorker
-    │           └── out/
-    │               ├── memory/          # Adaptadores en memoria
-    │               └── jdbc/            # ConexionBD, ProductoJdbcRepository, VentaJdbcRepository
-    └── test/java/ventas/
-        ├── ArchitectureTest.java        # Reglas ArchUnit
-        ├── domain/                      # Pruebas unitarias del dominio
-        ├── application/                 # Pruebas de casos de uso y patrones
-        └── adapters/
-            ├── in/swing/                # Pruebas de componentes Swing
-            └── out/jdbc/                # Pruebas de integración JDBC y transacciones (M10/M11)
-```
-
----
-
-## Aspectos destacados de P08 (M10 + M11)
-
-- **Esquema relacional (`src/main/resources/schema.sql`):** Tablas `producto`, `venta` y `detalle_venta` con restricciones `PRIMARY KEY`, `FOREIGN KEY ... ON DELETE CASCADE`, `NOT NULL` y `CHECK` (`precio >= 0`, `existencia >= 0`, `cantidad > 0`, `total >= 0`).
-- **Prevención de SQL Injection y fugas de recursos (`M10`):** Uso estricto de `PreparedStatement` y bloques `try-with-resources` en `ProductoJdbcRepository` y `VentaJdbcRepository`.
-- **Coordinación transaccional atómica (`M11`):** En `VentaJdbcRepository.guardar(Venta)`, se desactiva el auto-commit (`cn.setAutoCommit(false)`), se registra el encabezado, se insertan los detalles en `detalle_venta` y se descuenta el stock en `producto` (`WHERE codigo = ? AND existencia >= ?`). Si ocurre cualquier fallo, se invoca `cn.rollback()` garantizando cero estados parciales.
-- **Trazabilidad del equipo (`R01`):** Consulta el índice completo de evidencias en [`docs/contribuciones/P08_EQUIPO_01.md`](docs/contribuciones/P08_EQUIPO_01.md).
+## Documentación Técnica y Evidencias del Candidato
+- **Notas de Versión:** [`RELEASE_NOTES.md`](RELEASE_NOTES.md)
+- **Contrato OpenAPI 3.1.0:** [`docs/openapi.yaml`](docs/openapi.yaml)
+- **Matriz de Riesgos y Pruebas:** [`docs/matriz-riesgos-pruebas.md`](docs/matriz-riesgos-pruebas.md)
+- **Análisis SonarQube y Hallazgos:** [`docs/sonar-hallazgos.md`](docs/sonar-hallazgos.md)
+- **Plan de Reversa Probado:** [`docs/plan-de-reversa.md`](docs/plan-de-reversa.md)
+- **Índice Consolidado del Equipo (C04):** [`docs/contribuciones/C04_EQUIPO_01.md`](docs/contribuciones/C04_EQUIPO_01.md)
