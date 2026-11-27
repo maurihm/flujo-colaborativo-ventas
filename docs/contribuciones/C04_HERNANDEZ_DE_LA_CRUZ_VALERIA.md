@@ -31,6 +31,6 @@ de los 3 artefactos descargables.
 - **Rama:** `feature/c04-ci-github-actions`
 - **Issue:** https://github.com/maurihm/flujo-colaborativo-ventas/issues/82 (#
 [NÚMERO_DE_ISSUE])
-- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/82 (#
+- **Pull Request (PR):** https://github.com/maurihm/flujo-colaborativo-ventas/pull/83 (#
 [NÚMERO_DE_PR])
 - **Revisor Asignado:** Alejandro Lezama Aguilar (@Lez267)
