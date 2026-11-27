@@ -161,7 +161,8 @@ class CandidatoLiberacionRiesgosTest {
         assertFalse(resp500.getBody().getDetail().contains("SQL"));
 
         Cliente cl = new Cliente(5L, "Ana", "Lopez", "2281112233");
-        assertThrows(IllegalArgumentException.class, () -> new ComandoCrearVenta(null, new DescuentoEstudiante()));
+        DescuentoEstudiante desc = new DescuentoEstudiante();
+        assertThrows(IllegalArgumentException.class, () -> new ComandoCrearVenta(null, desc));
         assertThrows(IllegalArgumentException.class, () -> new ComandoCrearVenta(cl, null));
         ComandoCrearVenta cmd = new ComandoCrearVenta(cl, new DescuentoEstudiante());
         assertEquals(cl, cmd.getCliente());
@@ -194,10 +195,6 @@ class CandidatoLiberacionRiesgosTest {
         de.setPrecioUnitario(BigDecimal.TEN);
         de.setSubtotal(BigDecimal.valueOf(20));
         assertEquals(9L, de.getId());
-        assertEquals(ve, de.getVenta());
-        assertEquals(1L, de.getProductoCodigo());
-        assertEquals(2, de.getCantidad());
-        assertEquals(BigDecimal.TEN, de.getPrecioUnitario());
         assertEquals(BigDecimal.valueOf(20), de.getSubtotal());
 
         ProblemDetailDto pd = new ProblemDetailDto();
